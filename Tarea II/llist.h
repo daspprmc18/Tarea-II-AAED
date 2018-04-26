@@ -75,7 +75,7 @@ public:
         temp.sig = nil; // Conecta el nuevo nodo, con NIL. TEMP ----> NIL
         nil.ant = temp; // Conecta el nodo anterior de NIL con el nuevo nodo. NIL ----> TEMP*/
 
-        // 3) Copia los elementos de la lista original secuencialmente, empezando por el último elemento hasta llegar a NIL, utiliza el método insertar. 
+        // 3) Copia los elementos de la lista original secuencialmente, empezando por el último elemento hasta llegar a NIL, utiliza el método insertar.     
     };
     // Constructor copia
 
