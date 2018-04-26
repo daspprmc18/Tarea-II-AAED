@@ -45,7 +45,7 @@ public:
         nil->prev = nil;
         nil->next = nil;
 
-        // Copia los elementos de la lista original secuencialmente, empezando por el primero hasta llegar a NIL.
+        // 1) Copia los elementos de la lista original secuencialmente, empezando por el primero hasta llegar a NIL.
 
         llnode<T> * p = obj.nil->next; // Puntero "p" utilizado para recorrer obj.
 
@@ -68,12 +68,14 @@ public:
         temp = nullptr; // No se hace delete pues, eliminaría el nodo apuntado por TEMP, que es el último elemento de *this.
 
 
-        // Copia los elementos de la lista original secuencialmente, empezando por el primero hasta llegar a NIL, pero utiliza un puntero menos.
+        // 2) Copia los elementos de la lista original secuencialmente, empezando por el primero hasta llegar a NIL, pero utiliza un puntero menos.
 
         /*temp.ant = nil.ant; // Conecta el nuevo nodo con el último actual de *this.  ÚLTIMO ELEMENTO <---- TEMP
         nil.ant.sig = temp; // Conecta el último actual de *this con el nuevo nodo. ÚLTIMO ELEMENTO ----> TEMP
         temp.sig = nil; // Conecta el nuevo nodo, con NIL. TEMP ----> NIL
         nil.ant = temp; // Conecta el nodo anterior de NIL con el nuevo nodo. NIL ----> TEMP*/
+
+        // 3) Copia los elementos de la lista original secuencialmente, empezando por el último elemento hasta llegar a NIL, utiliza el método insertar. 
     };
     // Constructor copia
 
