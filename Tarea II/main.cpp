@@ -10,7 +10,7 @@ void printList(const llist<Integer> &list);
 int main(int argc, char** argv) {
 
     srand(time(NULL));
-    Integer n = 100;
+    Integer n = 20;
     Integer mulFactor = 2 * n;
     llist<Integer> list;
     llnode<Integer> * node = nullptr;

@@ -69,10 +69,10 @@ public:
         while ( p != nil ) { // Repite lo siguiente hasta que p apunte al nodo centinela.
 
             delete p->next; // Elimina el nodo siguiente de p.
-            p = p->prev; // Actualiza p al nodo anterior.
+            p = p->prev; // Retrocede p al nodo anterior.
         }
 
-        delete p->next; // Elimina el nodo siguiente al centinela.
+        delete p->next; // Elimina nodo siguiente al centinela.
         delete p; // Elimina el nodo centinela.
 
     };
@@ -85,10 +85,10 @@ public:
 
     void listInsert (llnode<T>* x) {
 
-        x->next = nil->next; // 
-        nil->next->prev = x;
-        nil->next = x;
-        x->prev = nil;
+        x->next = nil->next; // Conecta el nuevo nodo con el primero actual de *this. TEMP ----> PRIMERO
+        nil->next->prev = x; // Conecta el primero actual de *this con el nuevo nodo. PRIMERO <---- TEMP
+        nil->next = x; // Conecta NIL con el nuevo nodo. NIL ----> TEMP
+        x->prev = nil; // Conecta el nuevo nodo con NIL. NIL <---- TEMP
     };
     // Inserta el nodo x en la lista.
 
