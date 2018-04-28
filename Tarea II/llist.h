@@ -34,7 +34,7 @@ template <typename T>
 class llist {
 public:
 
-    llist () : nil (new llnode<T>( )) { // El nodo siguiente y al anterior apuntan al nodo centinela.
+    llist () : nil (new llnode<T>( )) { // Lista vacía, nodo siguiente y anterior de NIL apuntan a NIL.
         nil->prev = nil;
         nil->next = nil;
     };
@@ -45,48 +45,7 @@ public:
         nil->prev = nil;
         nil->next = nil;
 
-        /*// 1) Copia los elementos de la lista original secuencialmente, empezando por el primero hasta llegar a NIL.
-
-        llnode<T> * p = obj.nil->next; // Puntero "p" utilizado para recorrer obj.
-
-        llnode<T> * q = this->nil; // Puntero "q" utilizado para recorrer *this.
-
-        llnode<T> * temp = nullptr; // Puntero "temp" utilizado para alojar temporalmente un nuevo nodo.
-
-        while ( p != obj.nil ) { // Mientras no se haya recorrido completamente a obj.
-
-            temp = new llnode<T>( p->key, nullptr, nullptr );
-            temp->prev = q; // Conecta el nuevo nodo con el último actual de *this. Q <---- TEMP
-            q->next = temp; // Conecta el último actual de *this con el nuevo nodo. Q ----> TEMP
-            temp->next = nil; // Conecta el nodo siguiente de TEMP con NIL. TEMP ----> NIL
-            nil->prev = temp; // Conecta el nodo anterior de NIL con el nuevo nodo. NIL ----> TEMP
-            p = p->next; // Avanza al siguiente elemento de obj.          
-            q = q->next; // Avanza al siguiente elemento de *this.
-        }
-        temp = nullptr; // No se hace delete pues, eliminaría el nodo apuntado por TEMP, que es el último elemento de *this.*/
-
-
-        // 2) Copia los elementos de la lista original secuencialmente, empezando por el primero hasta llegar a NIL, pero utiliza un puntero menos.
-        // Inserción al FINAL.
-
-        /*llnode<T> * p = obj.nil->next; // Puntero "p" utilizado para recorrer obj.
-        llnode<T> * temp = nullptr; // Puntero "temp" utilizado para alojar temporalmente un nuevo nodo.
-
-        while ( p != obj.nil ) {
-
-            temp = new llnode<T>( p->key, nullptr, nullptr );
-            temp->prev = nil->prev; // Conecta el nuevo nodo con el último actual de *this.  ÚLTIMO ELEMENTO <---- TEMP
-            nil->prev->next = temp; // Conecta el último actual de *this con el nuevo nodo. ÚLTIMO ELEMENTO ----> TEMP
-            temp->next = nil; // Conecta el nuevo nodo, con NIL. TEMP ----> NIL
-            nil->prev = temp; // Conecta el nodo anterior de NIL con el nuevo nodo. NIL ----> TEMP
-            p = p->next; // Avanza al siguiente elemento de obj.
-            temp = nullptr;
-        }
-        temp = nullptr;*/
-
-
-
-        // 3) Copia los elementos de la lista original secuencialmente, empezando por el último elemento hasta llegar a NIL, utiliza el método insertar.
+        //Copia los elementos de la lista original secuencialmente, empezando por el último elemento hasta llegar a NIL, utiliza el método insertar.
 
         llnode<T> * p = obj.nil->prev; // Puntero "p" utilizado para recorrer obj.
         llnode<T> * temp = nullptr; // Puntero "temp" utilizado para alojar temporalmente un nuevo nodo.
