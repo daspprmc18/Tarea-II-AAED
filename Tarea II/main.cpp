@@ -10,80 +10,61 @@ void printList(const llist<Integer> &list);
 int main(int argc, char** argv) {
 
     srand(time(NULL));
-    Integer n = 20;
+    Integer n = 1000000;
     Integer mulFactor = 2 * n;
-    llist<Integer> list;
-    llnode<Integer> * node = nullptr;
 
-    /*for (Integer i = 0; i < n; ++i) {
+    /*
+     *  Inserte en una lista vacía n = 1 000 000 de nodos cuyas llaves sean enteros seleccio-
+     *  nados aleatoriamente en el rango [0, 2n). Seleccione elementos al azar en el mismo
+     *  rango [0, 2n) y búsquelos en la lista (estén o no en ella) registrando el número de
+     *  búsquedas realizadas en un lapso de diez segundos.
+     */
+    {
+        llist<Integer> randomList;
+        llnode<Integer> * randomNode = nullptr;
 
-        node = new llnode<Integer>((rand() % mulFactor), nullptr, nullptr);
-        list.listInsert(node);
-        node = nullptr;
-    }*/
+        for (Integer i = 0; i < n; ++i) {
 
-    for (Integer i = 0; i < n; ++i) {
+            randomNode = new llnode<Integer>((rand() % mulFactor), nullptr, nullptr);
+            randomList.listInsert(randomNode);
+            randomNode = nullptr;
+        }
 
-        node = new llnode<Integer>(i, nullptr, nullptr);
-        list.listInsert(node);
-        node = nullptr;
+        for (int i = 0; i < 10; ++i) {
+
+            randomList.listSearch((rand() % mulFactor));
+        }
     }
 
-    printList(list);
+    /*
+     *  Inserte en una lista vacía las llaves 0, 1, ..., n − 1, en ese orden. Seleccione elementos
+     *  al azar en el rango [0, 2n), y registre el número de búsquedas que se logró hacer en
+     *  un lapso de 10 segundos. 
+     */
+    {
+        llist<Integer> sequentialList;
+        llnode<Integer> * sequentialNode = nullptr;
 
-    llnode<Integer>* p = list.listSearch(0);
-    llnode<Integer>* q = list.listSearch(5);
-    llnode<Integer>* r = list.listSearch(19);
-    llnode<Integer>* s = list.listSearch(1);
-    llnode<Integer>* t = list.listSearch(3);
-    llnode<Integer>* u = list.listSearch(7);
-    llnode<Integer>* v = list.listSearch(2);
-    llnode<Integer>* w = list.listSearch(6);
+        for (Integer i = 0; i < n; ++i) {
 
+            sequentialNode = new llnode<Integer>(i, nullptr, nullptr);
+            sequentialList.listInsert(sequentialNode);
+            sequentialNode = nullptr;
+        }
 
+        for (int i = 0; i < 10; ++i) {
 
-    std::cout << "Eliminando " << 19 << "\n\n";
-    list.listDelete(r);
-    printList(list);
+            sequentialList.listSearch((rand() % mulFactor));
+        }
+    }
 
-    std::cout << "Eliminando " << 3 << "\n\n";
-    list.listDelete(t);
-    printList(list);
+    /*
+     *  Indique si en alguno de los dos casos (inserción de números aleatorios o inserción
+     *  de números secuenciales) se realizó una cantidad de búsquedas (exitosas o fallidas,
+     *  no importa) sustancialmente mayor que en el otro (más del doble), e indique si
+     *  esto corresponde a lo esperado.
+     */
 
-    std::cout << "Eliminando " << 5 << "\n\n";
-    list.listDelete(q);
-    printList(list);
-
-    std::cout << "Eliminando " << 1 << "\n\n";
-    list.listDelete(s);
-    printList(list);
-
-    std::cout << "Eliminando " << 0 << "\n\n";
-    list.listDelete(p);
-    printList(list);
-
-    std::cout << "Eliminando " << 2 << "\n\n";
-    list.listDelete(v);
-    printList(list);
-
-    std::cout << "Eliminando " << 7 << "\n\n";
-    list.listDelete(u);
-    printList(list);
-
-    std::cout << "Eliminando " << 6 << "\n\n";
-    list.listDelete(w);
-    printList(list);
-
-    delete p;
-    q = nullptr;
-    r = nullptr;
-    s = nullptr;
-    t = nullptr;
-    u = nullptr;
-    v = nullptr;
-    w = nullptr;
-
-    printList(list);
     return 0;
 }
 

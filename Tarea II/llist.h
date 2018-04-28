@@ -24,7 +24,7 @@ public:
     };
 
     ~llnode () {
-        std::cout << "Nodo " << key << " eliminado" << std::endl << std::endl;
+        //std::cout << "Nodo " << key << " eliminado" << std::endl << std::endl;
     }
 };
 
