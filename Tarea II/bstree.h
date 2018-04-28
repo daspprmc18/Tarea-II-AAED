@@ -87,12 +87,12 @@ public:
 
     void treeInsert (node<T>* z) {
 
-        node<T> * trailingPtr = nullptr; // Puntero que se arrastra para tener una referencia al padre del nodo que vamos a insertar.
+        node<T> * trailing = nullptr; // Puntero que se arrastra para tener una referencia al padre del nodo que vamos a insertar.
         node<T> * current = root; // Puntero que busca la posición en la cual vamos a insertar al nuevo nodo. 
 
         while ( current ) { // Mientras C no apunte a NULL.
 
-            trailingPtr = current; // Y, apunte al nodo al que apunta C. I.E : Y apunta al padre de C si y sólo si lueogo de actualizar C, C apunta a NULL.
+            trailing = current; // T referencia al padre de C.
 
             if ( z->key < current->key ) // Si el elemento en el nodo apuntado por Z es menor que el elemento en el nodo apuntado por C: 
                 current = current->left; // Actualice C al subárbol izquierdo de C.
@@ -101,17 +101,14 @@ public:
 
         } // Finaliza cuando encuentra la posición adecuada para insertar el nodo Z.
 
-        z->p = trailingPtr; // El padre de Z es el nodo al cual apunta Y actualmente.
+        z->p = trailing; // El padre de Z es el nodo al cual apunta T actualmente.
 
-        // Será que Z es hijo izquierdo o derecho de Y, o será que el árbol está vacío, bueno averigüémoslo:
-        if ( !trailingPtr ) // El árbol está vacío.
-            root = z;
-        else if ( z.key < trailingPtr->key ) {
-            trailingPtr->left = z; // Z es hijo izquierdo de Y.
-
+        if ( !trailing ) // El árbol está vacío.
+            root = z; // Z es la nueva raíz.
+        else if ( z.key < trailing->key ) { // Si el elemento en el nodo apuntado por Z es menor que el elemento en el nodo apuntado por T: 
+            trailing->left = z; // Z es hijo izquierdo de T.
         } else
-            trailingPtr->right = z; // Z es hijo derecho de Y.
-
+            trailing->right = z; // Z es hijo derecho de T.
     };
     // Inserta el nodo z en la posicion que le corresponde en el arbol.
 
