@@ -24,7 +24,7 @@ public:
     };
 
     ~llnode () {
-
+        std::cout << "Nodo " << key << " eliminado" << std::endl << std::endl;
     }
 };
 
@@ -80,7 +80,27 @@ public:
     // Constructor copia
 
     ~llist () {
-        delete nil;
+
+        llnode<T> * p = nullptr;
+        p = nil->prev->prev; // Ubica el puntero p en el penúltimo nodo de *this.
+
+        while ( p != nil ) {
+
+            p->next->next = nullptr;
+            p->next->prev = nullptr;
+            delete p->next; // Elimina el nodo siguiente de p.
+            p = p->prev; // Actualiza p al nodo anterior.
+        }
+
+        // Borra el elemento siguiente a nil y finalmente a él mismo.
+        p->next->next = nullptr;
+        p->next->prev = nullptr;
+        delete p->next;
+
+        nil->next = nullptr;
+        nil->prev = nullptr;
+        delete p;
+
     };
     // Destructor (borra la lista)
 

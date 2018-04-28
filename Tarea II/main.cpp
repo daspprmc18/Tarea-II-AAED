@@ -9,31 +9,35 @@ void printList(const llist<Integer> &list);
 
 int main(int argc, char** argv) {
 
-    srand(time(NULL));
-    Integer n = 100000000;
-    Integer mulFactor = 2 * n;
-    llist<Integer> list;
+	srand(time(NULL));
+	Integer n = 10;
+	Integer mulFactor = 2 * n;
+	llist<Integer> list;
+	llnode<Integer> * node = nullptr;
 
-    for (Integer i = 0; i < n; ++i) {
+	for (Integer i = 0; i < n; ++i) {
 
-        llnode<Integer> * node = new llnode<Integer>((rand() % mulFactor), nullptr, nullptr);
-        list.listInsert(node);
-        node = nullptr;
-    }
-    return 0;
+		node = new llnode<Integer>((rand() % mulFactor), nullptr, nullptr);
+		list.listInsert(node);
+		node = nullptr;
+	}
+
+	printList(list);
+	return 0;
 }
 
 void printList(const llist<Integer> &list) {
-    llnode<Integer> * p = new llnode<Integer>();
-    p = list.getNil()->next;
-    int cantNodos = 0;
 
-    while (p != list.getNil()) {
-        std::cout << "Nodo " << ++cantNodos << ": " << p->key << std::endl << std::endl;
-        p = p->next;
-    }
-    std::cout << std::endl << std::endl;
-    p = nullptr;
+	llnode<Integer> * p = nullptr;
+	p = list.getNil()->next;
+	int cantNodos = 0;
+
+	while (p != list.getNil()) {
+		std::cout << "Nodo " << ++cantNodos << ": " << p->key << std::endl << std::endl;
+		p = p->next;
+	}
+	std::cout << std::endl << std::endl;
+	p = nullptr;
 }
 
 
