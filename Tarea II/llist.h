@@ -79,27 +79,19 @@ public:
     };
     // Constructor copia
 
-    ~llist () {
+    ~llist () { // Elimina los elementos de *this empezando por el último elemento hasta llegar al nodo centinela.
 
         llnode<T> * p = nullptr;
         p = nil->prev->prev; // Ubica el puntero p en el penúltimo nodo de *this.
 
-        while ( p != nil ) {
+        while ( p != nil ) { // Repite lo siguiente hasta que p apunte al nodo centinela.
 
-            p->next->next = nullptr;
-            p->next->prev = nullptr;
             delete p->next; // Elimina el nodo siguiente de p.
             p = p->prev; // Actualiza p al nodo anterior.
         }
 
-        // Borra el elemento siguiente a nil y finalmente a él mismo.
-        p->next->next = nullptr;
-        p->next->prev = nullptr;
-        delete p->next;
-
-        nil->next = nullptr;
-        nil->prev = nullptr;
-        delete p;
+        delete p->next; // Elimina el nodo siguiente al centinela.
+        delete p; // Elimina el nodo centinela.
 
     };
     // Destructor (borra la lista)
