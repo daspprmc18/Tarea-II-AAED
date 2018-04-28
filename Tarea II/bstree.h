@@ -38,7 +38,7 @@ template <typename T>
 class tree {
 public:
 
-    tree () {
+    tree () : root (nullptr) {
     };
     // Constructor. Crea un arbol vacio
 
@@ -86,6 +86,32 @@ public:
     // del nodo x. Si no existe tal nodo devuelve NULL.
 
     void treeInsert (node<T>* z) {
+
+        node<T> * trailingPtr = nullptr; // Puntero que se arrastra para tener una referencia al padre del nodo que vamos a insertar.
+        node<T> * current = root; // Puntero que busca la posición en la cual vamos a insertar al nuevo nodo. 
+
+        while ( current ) { // Mientras C no apunte a NULL.
+
+            trailingPtr = current; // Y, apunte al nodo al que apunta C. I.E : Y apunta al padre de C si y sólo si lueogo de actualizar C, C apunta a NULL.
+
+            if ( z->key < current->key ) // Si el elemento en el nodo apuntado por Z es menor que el elemento en el nodo apuntado por C: 
+                current = current->left; // Actualice C al subárbol izquierdo de C.
+            else
+                current = current->right; // Actualice C al subárbol derecho de C.
+
+        } // Finaliza cuando encuentra la posición adecuada para insertar el nodo Z.
+
+        z->p = trailingPtr; // El padre de Z es el nodo al cual apunta Y actualmente.
+
+        // Será que Z es hijo izquierdo o derecho de Y, o será que el árbol está vacío, bueno averigüémoslo:
+        if ( !trailingPtr ) // El árbol está vacío.
+            root = z;
+        else if ( z.key < trailingPtr->key ) {
+            trailingPtr->left = z; // Z es hijo izquierdo de Y.
+
+        } else
+            trailingPtr->right = z; // Z es hijo derecho de Y.
+
     };
     // Inserta el nodo z en la posicion que le corresponde en el arbol.
 
@@ -98,7 +124,7 @@ public:
     node<T> * getRoot () const {
         return this->root;
     };
-    // Devuelve la raiz del arbol. (Para efectos de revisin de la tarea).
+    // Devuelve la raiz del arbol. (Para efectos de revisión de la tarea).
 
 private:
     node<T> *root; // root of the Tree
