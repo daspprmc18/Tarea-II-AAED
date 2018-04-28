@@ -69,7 +69,7 @@ public:
         // 2) Copia los elementos de la lista original secuencialmente, empezando por el primero hasta llegar a NIL, pero utiliza un puntero menos.
         // Inserción al FINAL.
 
-        llnode<T> * p = obj.nil->next; // Puntero "p" utilizado para recorrer obj.
+        /*llnode<T> * p = obj.nil->next; // Puntero "p" utilizado para recorrer obj.
         llnode<T> * temp = nullptr; // Puntero "temp" utilizado para alojar temporalmente un nuevo nodo.
 
         while ( p != obj.nil ) {
@@ -82,11 +82,23 @@ public:
             p = p->next; // Avanza al siguiente elemento de obj.
             temp = nullptr;
         }
-        temp = nullptr;
+        temp = nullptr;*/
 
 
 
-        // 3) Copia los elementos de la lista original secuencialmente, empezando por el último elemento hasta llegar a NIL, utiliza el método insertar.     
+        // 3) Copia los elementos de la lista original secuencialmente, empezando por el último elemento hasta llegar a NIL, utiliza el método insertar.
+
+        llnode<T> * p = obj.nil->prev; // Puntero "p" utilizado para recorrer obj.
+        llnode<T> * temp = nullptr; // Puntero "temp" utilizado para alojar temporalmente un nuevo nodo.
+
+        while ( p != obj.nil ) {
+
+            temp = new llnode<T>( p->key, nullptr, nullptr );
+            listInsert( temp ); // Inserta el nuevo nodo a *this.
+            p = p->prev; // Retrocede al siguiente elemento de obj.
+            temp = nullptr;
+        }
+
     };
     // Constructor copia
 
@@ -114,7 +126,7 @@ public:
 
     void listInsert (llnode<T>* x) {
 
-        x->next = nil->next;
+        x->next = nil->next; // 
         nil->next->prev = x;
         nil->next = x;
         x->prev = nil;

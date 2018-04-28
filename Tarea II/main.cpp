@@ -10,7 +10,7 @@ void printList(const llist<Integer> &list);
 int main(int argc, char** argv) {
 
     srand(time(NULL));
-    Integer n = 10;
+    Integer n = 100;
     Integer mulFactor = 2 * n;
     llist<Integer> list;
     llnode<Integer> * node = nullptr;
@@ -26,6 +26,7 @@ int main(int argc, char** argv) {
 
     llist<Integer> list2(list);
 
+    std::cout << "Constructor copia\n\n";
     printList(list2);
 
     return 0;
