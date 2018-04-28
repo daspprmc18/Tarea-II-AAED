@@ -100,6 +100,12 @@ public:
     // Inserta el nodo x en la lista.
 
     llnode<T>* listDelete (llnode<T>* x) {
+
+        if ( x ) { // Si y sólo sí x no es nullptr.   
+            x->prev->next = x->next; // Conecta el nodo anterior de X con el siguiente de X.
+            x->next->prev = x->prev; // Conecta el nodo siguiente de X con el anterior de X.
+            delete x;
+        }
     };
     // Saca de la lista la llave contenida en el nodo apuntado por x.
     // Devuelve la direccion del nodo eliminado para que se pueda 
