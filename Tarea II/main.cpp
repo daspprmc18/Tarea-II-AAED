@@ -24,10 +24,9 @@ int main(int argc, char** argv) {
 
     printList(list);
 
-    llist<Integer> list2(list);
+    llnode<Integer> * p = list.listSearch(25);
 
-    std::cout << "Constructor copia\n\n";
-    printList(list2);
+    (!p) ? std::cout << "Elemento no encontrado.\n\n" : std::cout << "Elemento encontrado//n/n";
 
     return 0;
 }

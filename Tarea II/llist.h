@@ -79,6 +79,13 @@ public:
     // Destructor (borra la lista)
 
     llnode<T>* listSearch (const T& k) {
+
+        llnode<T> * p = nil->next;
+
+        while ( p != nil && p->key != k ) // Recorre *this hasta que encuentre el elemento buscado o p apunte a NIL.
+            p = p->next;
+
+        return (p != nil ) ? p : nullptr; // Si p no apunta a NIL entonces encontró el elemento y devuelve su dirección de memoria, en caso contrario devuelve NULL.
     };
     // Busca la llave iterativamente. Si la encuentra, devuelve un 
     // apuntador al nodo que la contiene; sino devuelve NULL.
