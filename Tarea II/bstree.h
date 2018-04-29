@@ -29,6 +29,9 @@ public:
     };
 
     ~node () {
+        std::cout << "Eliminando Nodo " << key << "\n\n";
+        delete left;
+        delete right;
     }
 };
 
@@ -47,6 +50,7 @@ public:
     // Constructor copia
 
     ~tree () {
+        delete root;
     };
     // Destructor (borra el arbol)
 
@@ -105,7 +109,7 @@ public:
 
         if ( !trailing ) // El árbol está vacío.
             root = z; // Z es la nueva raíz.
-        else if ( z.key < trailing->key ) { // Si el elemento en el nodo apuntado por Z es menor que el elemento en el nodo apuntado por T: 
+        else if ( z->key < trailing->key ) { // Si el elemento en el nodo apuntado por Z es menor que el elemento en el nodo apuntado por T: 
             trailing->left = z; // Z es hijo izquierdo de T.
         } else
             trailing->right = z; // Z es hijo derecho de T.

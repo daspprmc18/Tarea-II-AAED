@@ -9,61 +9,82 @@ void printList(const llist<Integer> &list);
 
 int main(int argc, char** argv) {
 
+    int option = 1;
+
     srand(time(NULL));
     Integer n = 1000000;
     Integer mulFactor = 2 * n;
 
-    /*
-     *  Inserte en una lista vacía n = 1 000 000 de nodos cuyas llaves sean enteros seleccio-
-     *  nados aleatoriamente en el rango [0, 2n). Seleccione elementos al azar en el mismo
-     *  rango [0, 2n) y búsquelos en la lista (estén o no en ella) registrando el número de
-     *  búsquedas realizadas en un lapso de diez segundos.
-     */
-    {
-        llist<Integer> randomList;
-        llnode<Integer> * randomNode = nullptr;
+    // Código de prueba para Lista enlazada.
+    if (!option) {
 
-        for (Integer i = 0; i < n; ++i) {
+        /*
+         *  Inserte en una lista vacía n = 1 000 000 de nodos cuyas llaves sean enteros seleccio-
+         *  nados aleatoriamente en el rango [0, 2n). Seleccione elementos al azar en el mismo
+         *  rango [0, 2n) y búsquelos en la lista (estén o no en ella) registrando el número de
+         *  búsquedas realizadas en un lapso de diez segundos.
+         */
+        {
+            llist<Integer> randomList;
+            llnode<Integer> * randomNode = nullptr;
 
-            randomNode = new llnode<Integer>((rand() % mulFactor), nullptr, nullptr);
-            randomList.listInsert(randomNode);
-            randomNode = nullptr;
+            for (Integer i = 0; i < n; ++i) {
+
+                randomNode = new llnode<Integer>((rand() % mulFactor), nullptr, nullptr);
+                randomList.listInsert(randomNode);
+                randomNode = nullptr;
+            }
+
+            for (int i = 0; i < 10; ++i) {
+
+                randomList.listSearch((rand() % mulFactor));
+            }
         }
 
-        for (int i = 0; i < 10; ++i) {
+        /*
+         *  Inserte en una lista vacía las llaves 0, 1, ..., n − 1, en ese orden. Seleccione elementos
+         *  al azar en el rango [0, 2n), y registre el número de búsquedas que se logró hacer en
+         *  un lapso de 10 segundos. 
+         */
+        {
+            llist<Integer> sequentialList;
+            llnode<Integer> * sequentialNode = nullptr;
 
-            randomList.listSearch((rand() % mulFactor));
+            for (Integer i = 0; i < n; ++i) {
+
+                sequentialNode = new llnode<Integer>(i, nullptr, nullptr);
+                sequentialList.listInsert(sequentialNode);
+                sequentialNode = nullptr;
+            }
+
+            for (int i = 0; i < 10; ++i) {
+
+                sequentialList.listSearch((rand() % mulFactor));
+            }
         }
+
+        /*
+         *  Indique si en alguno de los dos casos (inserción de números aleatorios o inserción
+         *  de números secuenciales) se realizó una cantidad de búsquedas (exitosas o fallidas,
+         *  no importa) sustancialmente mayor que en el otro (más del doble), e indique si
+         *  esto corresponde a lo esperado.
+         */
+    } else { // Código de prueba para Árbol binario.
+
+        tree<Integer> tree;
+
+        node<Integer> * node1 = new node<Integer>(15, nullptr, nullptr, nullptr);
+        node<Integer> * node2 = new node<Integer>(6, nullptr, nullptr, nullptr);
+        node<Integer> * node3 = new node<Integer>(18, nullptr, nullptr, nullptr);
+        node<Integer> * node4 = new node<Integer>(3, nullptr, nullptr, nullptr);
+        node<Integer> * node5 = new node<Integer>(7, nullptr, nullptr, nullptr);
+
+        tree.treeInsert(node1);
+        tree.treeInsert(node2);
+        tree.treeInsert(node3);
+        tree.treeInsert(node4);
+        tree.treeInsert(node5);
     }
-
-    /*
-     *  Inserte en una lista vacía las llaves 0, 1, ..., n − 1, en ese orden. Seleccione elementos
-     *  al azar en el rango [0, 2n), y registre el número de búsquedas que se logró hacer en
-     *  un lapso de 10 segundos. 
-     */
-    {
-        llist<Integer> sequentialList;
-        llnode<Integer> * sequentialNode = nullptr;
-
-        for (Integer i = 0; i < n; ++i) {
-
-            sequentialNode = new llnode<Integer>(i, nullptr, nullptr);
-            sequentialList.listInsert(sequentialNode);
-            sequentialNode = nullptr;
-        }
-
-        for (int i = 0; i < 10; ++i) {
-
-            sequentialList.listSearch((rand() % mulFactor));
-        }
-    }
-
-    /*
-     *  Indique si en alguno de los dos casos (inserción de números aleatorios o inserción
-     *  de números secuenciales) se realizó una cantidad de búsquedas (exitosas o fallidas,
-     *  no importa) sustancialmente mayor que en el otro (más del doble), e indique si
-     *  esto corresponde a lo esperado.
-     */
 
     return 0;
 }
