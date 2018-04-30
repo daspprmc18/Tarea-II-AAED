@@ -75,7 +75,7 @@ int main(int argc, char** argv) {
 
         node<Integer> * node1 = new node<Integer>(15, nullptr, nullptr, nullptr);
         node<Integer> * node2 = new node<Integer>(6, nullptr, nullptr, nullptr);
-        node<Integer> * node3 = new node<Integer>(18, nullptr, nullptr, nullptr);
+        node<Integer> * node3 = new node<Integer>(52, nullptr, nullptr, nullptr);
         node<Integer> * node4 = new node<Integer>(3, nullptr, nullptr, nullptr);
         node<Integer> * node5 = new node<Integer>(7, nullptr, nullptr, nullptr);
 
@@ -84,6 +84,9 @@ int main(int argc, char** argv) {
         tree.treeInsert(node3);
         tree.treeInsert(node4);
         tree.treeInsert(node5);
+
+        std::cout << "El mínimo de T es: " << tree.treeMinimum()->key << " \n\n";
+        std::cout << "El máximo de T es: " << tree.treeMaximum()->key << " \n\n";
     }
 
     return 0;

@@ -31,9 +31,10 @@ public:
     };
 
     ~node () {
-        std::cout << "Eliminando Nodo " << key << "\n\n";
+
         delete left;
         delete right;
+        std::cout << "Eliminando Nodo " << key << "\n\n";
     }
 };
 
@@ -88,12 +89,12 @@ public:
 
         node<T> * current = root;
 
-        while ( current && current->key != k ) {
+        while ( current != nullptr && current->key != k ) { // Mientras C sea distinto de NULL y el elemento en el nodo apuntado por C no es K.
 
-            if ( k < current->key )
-                current = current->left;
+            if ( k < current->key ) // Si K es menor que el elemento en el nodo apuntado por C
+                current = current->left; // Buscar K en subárbol izquierdo.
             else
-                current = current->right;
+                current = current->right; // Buscar K en el subárbol derecho.
         }
         return current;
     };
@@ -101,11 +102,25 @@ public:
     // iterativo
 
     node<T>* treeMinimum () {
+
+        node<T>* current = root;
+
+        while ( current->left != nullptr ) // Mientras el nodo apuntado por C tenga hijo izquierdo.
+            current = current->left; // Avanza C al hijo izquierdo de C.
+
+        return current;
     };
     // Devuelve el nodo que tiene la llave menor.
-    // Si el arbol est vacio devuelve NULL.
+    // Si el arbol está vacio devuelve NULL.
 
     node<T>* treeMaximum () {
+
+        node<T> * current = root;
+
+        while ( current->right != nullptr ) // Mientras el nodo apuntado por C tenga hijo derecho.
+            current = current->right; // Avanza C al hijo derecho de C.
+
+        return current;
     };
     // Devuelve el nodo que tiene la llave mayor.
     // Si el arbol esta vacio devuelve NULL.
