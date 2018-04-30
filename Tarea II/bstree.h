@@ -2,7 +2,9 @@
 #define BINARY_SEARCH_Tree
 #include <iostream>
 #include <stack>
+
 using namespace std;
+
 // Nodos del arbol:
 
 template <typename T>
@@ -39,6 +41,18 @@ public:
 
 template <typename T>
 class tree {
+private:
+
+    node<T>* treeSearch (node<T>* c, const T& k) {
+
+        if ( !c || c->key == k ) // Si C es NULL o el elemento en el nodo apuntado por C es el que se busca
+            return c;
+
+        if ( k < c->key ) // Si K es menor que el elemento en el nodo apuntado por C
+            return treeSearch( c->left, k ); // Buscar K en subárbol izquierdo.
+        else
+            return treeSearch( c->right, k ); // Buscar K en el subárbol derecho.
+    };
 public:
 
     tree () : root (nullptr) {
@@ -64,12 +78,24 @@ public:
     // metodo la pila debe contener las llaves de los nodos del 
     // subarbol ordenadas de mayor a menor.
 
-    node<T>* treeSearch (const T& k) {
+    node<T>* treeSearch (const T & k) {
+        return treeSearch( root, k );
     };
     // Busca la llave recursivamente; si la encuentra, devuelve un 
     // apuntador al nodo que la contiene, sino devuelve NULL
 
-    node<T>* iterativeTreeSearch (const T& k) {
+    node<T>* iterativeTreeSearch (const T & k) {
+
+        node<T> * current = root;
+
+        while ( current && current->key != k ) {
+
+            if ( k < current->key )
+                current = current->left;
+            else
+                current = current->right;
+        }
+        return current;
     };
     // Lo mismo que en el anterior pero usando un procedimiento 
     // iterativo
