@@ -54,6 +54,17 @@ private:
         else
             return treeSearch( c->right, k ); // Buscar K en el subárbol derecho.
     };
+
+    node<T>* treeMinimum (node<T>* x) {
+
+        node<T>* current = x;
+
+        while ( current->left != nullptr ) // Mientras el nodo apuntado por C tenga hijo izquierdo.
+            current = current->left; // Avanza C al hijo izquierdo de C.
+
+        return current;
+    };
+
 public:
 
     tree () : root (nullptr) {
@@ -110,7 +121,7 @@ public:
 
         return current;
     };
-    // Devuelve el nodo que tiene la llave menor.
+    // Devuelve el nodo que tiene la llave menor. 
     // Si el arbol está vacio devuelve NULL.
 
     node<T>* treeMaximum () {
@@ -126,9 +137,25 @@ public:
     // Si el arbol esta vacio devuelve NULL.
 
     node<T>* treeSuccessor (const node<T>* x) {
+
+        node<T>* y = nullptr;
+
+        if ( x->right != nullptr ) // Si el subárbol derecho de X no está vacío
+            return treeMinimum( x->right ); // El sucesor de X es el mínimo del subárbol derecho de X. 
+
+        y = x->p; // Y, padre del nodo apuntado por X. 
+
+        while ( y != nullptr && x == y->right ) { // Mientras Y no sea NULL y X sea hijo derecho de Y.
+
+            x = y; // Suba X un nivel ----> Ahora X apunta a su padre.
+            y = y->p; // Suba Y un nivel ----> Ahora Y apunta al abuelo de X / Padre de Y.
+
+        } // Finaliza cuando encuentra el primer ancestro en dirección noreste. " Es decir X es hijo izquierdo de Y".
+
+        return y;
     };
     // Devuelve el nodo cuya llave es la que le sigue a la
-    // del nodo x. Si no existe tal nodo devuelve NULL.
+    // del nodo x. Si no existe tal nodo devuelve NULL. (NULL intento de acceso a llave ----> Violación de segmento.)
 
     void treeInsert (node<T>* z) {
 

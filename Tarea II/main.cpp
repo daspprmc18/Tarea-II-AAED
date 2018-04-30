@@ -85,8 +85,7 @@ int main(int argc, char** argv) {
         tree.treeInsert(node4);
         tree.treeInsert(node5);
 
-        std::cout << "El mínimo de T es: " << tree.treeMinimum()->key << " \n\n";
-        std::cout << "El máximo de T es: " << tree.treeMaximum()->key << " \n\n";
+        std::cout << "El sucesor de  6  es: " << tree.treeSuccessor(node5)->key << " \n\n";
     }
 
     return 0;
