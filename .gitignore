@@ -32,7 +32,6 @@
 *.app
 
 #Netbeans
-nbproject/private
-build
-dist
+/Tarean II/nbproject/private/
+/Tarea II/dist/
 /Tarea II/build/
