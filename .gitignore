@@ -31,7 +31,6 @@
 *.out
 *.app
 
-#Netbeans
 /Tarean II/nbproject/private/
 /Tarea II/dist/
 /Tarea II/build/
