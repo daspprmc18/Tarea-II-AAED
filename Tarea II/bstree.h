@@ -55,7 +55,7 @@ private:
             return treeSearch( c->right, k ); // Buscar K en el subárbol derecho.
     };
 
-    node<T>* treeMinimum (node<T>* x) {
+    node<T>* treeMinimum (node<T>* x) const {
 
         node<T>* current = x;
 
@@ -63,6 +63,22 @@ private:
             current = current->left; // Avanza C al hijo izquierdo de C.
 
         return current;
+    };
+
+    void treeTransplant (node<T> * u, node<T> * v) {
+
+        if ( !u.p ) // Si U no tiene padre, U es la raíz del árbol.
+
+            root = v; // V reemplaza a  U como la raíz del árbol T.
+
+        else if ( u == u->p->left ) // Si U es subárbol izquierdo ( hijo izquierdo ) de su padre.
+
+            u->p->left = v; // V reemplaza a U como subárbol izquierdo del padre de U.
+
+        else u->p->right = v; // V reemplaza a U como subárbol derecho del padre de U.
+
+        if ( v ) // Si V no es NULL ( V reemplazó a U )
+            v->p = u->p; // V y U deben tener el mismo padre.( Ahora el padre de V es el padre de U )
     };
 
 public:
@@ -185,6 +201,16 @@ public:
     // Inserta el nodo z en la posicion que le corresponde en el arbol.
 
     node<T>* treeDelete (node<T>* z) {
+
+        if ( !z->left ) // Si Z no tiene subárbol izquierdo; si hay subárbol derecho o no es despreciable
+
+            //  Si, Z es hijo derecho de su padre, el padre de Z reemplaza su subárbol derecho por el subárbol derecho de Z.
+            //  Si, Z es hijo izquierdo de su padre, el padre de Z reemplaza su subárbol izquierdo por el subárbol derecho de Z.
+            //  Finalmente el padre del subárbol derecho de Z es reemplazado por padre de Z.
+            treeTransplant( z, z->right );
+
+
+        //El padre de Z, reemplaza su subárbol derecho por el subárbol derecho de Z.
     };
     // Saca del arbol la llave contenida en el nodo apuntado por z.
     // Devuelve la direccion del nodo eliminado para que se pueda 
