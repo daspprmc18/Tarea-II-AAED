@@ -221,12 +221,21 @@ public:
 
             if ( y.p != z ) { // Si el padre del sucesor de Z no es Z.
 
+                // Asumimos que el subárbol izquierdo del sucesor de Z está vacío.
+                // Si, el sucesor de Z es hijo izquierdo de su padre, el padre del sucesor de Z reemplaza su hijo izquierdo por el subárbol derecho del sucesor de Z.
+                // Si, el sucesor de Z es hijo derecho de su padre, el padre del sucesor de Z reemplaza su hijo derecho por el subárbol derecho del sucesor de Z.
+                // El padre del subárbol derecho del sucesor de Z es reemplazado, por el padre del sucesor de Z.
                 treeTransplant( y, y->right );
+
+                // El subárbol derecho del sucesor de Z, es reemplazado por el subárbol derecho de Z. ( Conexión padre-hijo ) ( En ejemplo Conexión Y ----> R )
                 y->right = z->right;
-                y->right->p = y; // El padre del subárbol derecho del sucesor de Z, es reemplazado por el sucesor de Z.
+                // El padre del subárbol derecho del sucesor de Z, es reemplazado por el sucesor de Z.( Conexión hijo-padre )
+                y->right->p = y;
             }
 
-            // El padre del sucesor de Z es Z
+            // Lo del condicional anterior aplica de forma similar a lo siguiente:
+
+            // El padre del sucesor de Z es Z ( Caso c) libro )
 
             // Caso raíz árbol: donde se cumpla que el padre del sucesor de la raíz(Z) es Z: 
             // La raíz del árbol es reemplazada por el sucesor de Z.
@@ -241,7 +250,6 @@ public:
             y->left->p = y;
 
         }
-
 
         /*
          *  Lines 5–12 deal with the remaining two
