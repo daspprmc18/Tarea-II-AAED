@@ -202,12 +202,17 @@ public:
 
     node<T>* treeDelete (node<T>* z) {
 
-        if ( !z->left ) // Si Z no tiene subárbol izquierdo; si hay subárbol derecho o no es despreciable
-
+        if ( !z->left ) // Si Z no tiene subárbol izquierdo; Z puede o no tener subárbol derecho.
             //  Si, Z es hijo derecho de su padre, el padre de Z reemplaza su subárbol derecho por el subárbol derecho de Z.
             //  Si, Z es hijo izquierdo de su padre, el padre de Z reemplaza su subárbol izquierdo por el subárbol derecho de Z.
-            //  Finalmente el padre del subárbol derecho de Z es reemplazado por padre de Z.
+            //  Finalmente el padre del subárbol derecho de Z es reemplazado por el padre de Z.
             treeTransplant( z, z->right );
+
+        else if ( !z->right ) // Si Z no tiene subárbol derecho y Z tiene subárbol izquierdo ( condicional anterior ).
+            // Si, Z es hijo derecho de su padre, el padre de Z reemplaza su hijo derecho por el subárbol izquierdo de Z.
+            // Si, Z es hijo izquierdo de su padre, el padre de Z reemplaza su hijo izquierdo por el subárbol izquierdo de Z.
+            // Finalmente, el padre del subárbol izquierdo de Z es reemplazado por el padre de Z
+            treeTransplant( z, z->left );
 
 
         //El padre de Z, reemplaza su subárbol derecho por el subárbol derecho de Z.
