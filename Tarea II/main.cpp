@@ -99,17 +99,6 @@ int main(int argc, char** argv) {
         t1.treeInsert(node9);
         t1.treeInsert(node10);
         t1.treeInsert(node11);
-
-        /* std::stack<Integer> stack;
-         t1.inorderTreeWalk(t1.getRoot(), stack);
-         printStack(stack);
-
-         tree<Integer> t2(t1);
-         std::stack<Integer> stack2;
-         t2.inorderTreeWalk(t2.getRoot(), stack2);
-         printStack(stack2);
-
-         std::cout << "El sucesor de  13  es: " << t1.treeSuccessor(node8)->key << " \n\n";*/
     }
 
     return 0;
