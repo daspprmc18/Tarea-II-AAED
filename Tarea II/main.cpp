@@ -18,6 +18,9 @@ int main(int argc, char** argv) {
     Integer n = 1000000;
     Integer mulFactor = 2 * n;
 
+    for (int j = 0; j < 10; ++j)
+        std::cout << rand() % mulFactor << "\n\n";
+
     // Código de prueba para Lista enlazada.
     if (!option) {
 
@@ -37,6 +40,9 @@ int main(int argc, char** argv) {
                 randomList.listInsert(randomNode);
                 randomNode = nullptr;
             }
+
+            printList(randomList);
+            return 0;
 
             for (int i = 0; i < 10; ++i) {
 
@@ -74,31 +80,23 @@ int main(int argc, char** argv) {
          */
     } else { // Código de prueba para Árbol binario.
 
-        tree<Integer> t1;
+        tree<Integer> randomTree;
+        node<Integer> * randomNode = nullptr;
 
-        node<Integer> * node1 = new node<Integer>(15, nullptr, nullptr, nullptr);
-        node<Integer> * node2 = new node<Integer>(6, nullptr, nullptr, nullptr);
-        node<Integer> * node3 = new node<Integer>(18, nullptr, nullptr, nullptr);
-        node<Integer> * node4 = new node<Integer>(3, nullptr, nullptr, nullptr);
-        node<Integer> * node5 = new node<Integer>(2, nullptr, nullptr, nullptr);
-        node<Integer> * node6 = new node<Integer>(4, nullptr, nullptr, nullptr);
-        node<Integer> * node7 = new node<Integer>(7, nullptr, nullptr, nullptr);
-        node<Integer> * node8 = new node<Integer>(13, nullptr, nullptr, nullptr);
-        node<Integer> * node9 = new node<Integer>(9, nullptr, nullptr, nullptr);
-        node<Integer> * node10 = new node<Integer>(20, nullptr, nullptr, nullptr);
-        node<Integer> * node11 = new node<Integer>(17, nullptr, nullptr, nullptr);
+        for (Integer i = 0; i < n; ++i) {
+            randomNode = new node<Integer>((rand() % mulFactor), nullptr, nullptr, nullptr);
+            randomTree.treeInsert(randomNode);
+            randomNode = nullptr;
+        }
 
-        t1.treeInsert(node1);
-        t1.treeInsert(node2);
-        t1.treeInsert(node3);
-        t1.treeInsert(node4);
-        t1.treeInsert(node5);
-        t1.treeInsert(node6);
-        t1.treeInsert(node7);
-        t1.treeInsert(node8);
-        t1.treeInsert(node9);
-        t1.treeInsert(node10);
-        t1.treeInsert(node11);
+        /*tree<Integer> sequentialTree;
+        node<Integer> * sequentialNode = nullptr;
+
+        for (Integer i = 0; i < n; ++i) {
+            sequentialNode = new node<Integer>(i, nullptr, nullptr, nullptr);
+            sequentialTree.treeInsert(sequentialNode);
+            sequentialNode = nullptr;
+        }*/
     }
 
     return 0;
