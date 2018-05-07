@@ -95,8 +95,14 @@ public:
     // Destructor (borra el arbol)
 
     void inorderTreeWalk (node<T>* x, stack<T> & pila) {
-    };
 
+        if ( x ) { // Si el subárbol actual no está vació.
+
+            inorderTreeWalk( x->left, pila ); // Recorre en orden subárbol izquierdo.
+            pila.push( x->key ); // Apila el elemento apuntado por X.
+            inorderTreeWalk( x->right, pila ); // Recorre en orden subárbol derecho.
+        }
+    };
     // Efectua un recorrido en orden del subrbol cuya raiz es apuntada
     // por x, guardando en cada visita la llave de cada nodo en la pila.
     // Es decir, cada vez que se llega a un nodo se hace

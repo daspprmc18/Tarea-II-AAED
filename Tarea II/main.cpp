@@ -1,11 +1,14 @@
 #include <cstdlib>
+#include <iomanip>
+#include <stack>
 #include <time.h>
 
-#include "llist.h"
 #include "bstree.h"
+#include "llist.h"
 
 typedef long int Integer;
 void printList(const llist<Integer> &list);
+void printStack(stack<Integer> &stk);
 
 int main(int argc, char** argv) {
 
@@ -85,6 +88,12 @@ int main(int argc, char** argv) {
         tree.treeInsert(node4);
         tree.treeInsert(node5);
 
+        std::stack<Integer> stack;
+        tree.inorderTreeWalk(tree.getRoot(), stack);
+        printStack(stack);
+
+
+
         std::cout << "El sucesor de  6  es: " << tree.treeSuccessor(node5)->key << " \n\n";
     }
 
@@ -105,5 +114,14 @@ void printList(const llist<Integer> &list) {
     p = nullptr;
 }
 
+void printStack(stack<Integer> &stk) {
 
+    std::cout << "Pila: Recorrido en Orden \n\n";
+    while (!stk.empty()) {
+
+        std::cout << "|" << std::setw(8)  << stk.top() << " |\n";
+        stk.pop();
+    }
+    std::cout << " _ _ _ _ _  \n\n";
+}
 
