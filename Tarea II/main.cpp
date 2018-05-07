@@ -128,4 +128,3 @@ void printStack(stack<Integer> &stk) {
     }
     std::cout << " _ _ _ _ _  \n\n";
 }
-

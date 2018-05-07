@@ -67,7 +67,7 @@ private:
 
     void treeTransplant (node<T> * u, node<T> * v) {
 
-        if ( !u.p ) // Si U no tiene padre, U es la raíz del árbol.
+        if ( !u->p ) // Si U no tiene padre, U es la raíz del árbol.
             root = v; // V reemplaza a U como la raíz del árbol T.
 
         else if ( u == u->p->left ) // Si U es subárbol izquierdo ( hijo izquierdo ) de su padre.
@@ -238,7 +238,7 @@ public:
             // Como el subárbol derecho de Z no está vacío, su sucesor es el mínimo del subárbol derecho de Z.
             y = treeMinimum( z->right );
 
-            if ( y.p != z ) { // Si el padre del sucesor de Z no es Z.
+            if ( y->p != z ) { // Si el padre del sucesor de Z no es Z.
 
                 // Asumimos que el subárbol izquierdo del sucesor de Z está vacío.
                 // Si, el sucesor de Z es hijo izquierdo de su padre, el padre del sucesor de Z reemplaza su hijo izquierdo por el subárbol derecho del sucesor de Z.
@@ -254,7 +254,7 @@ public:
 
             // Lo del condicional anterior aplica de forma similar a lo siguiente:
 
-            // El padre del sucesor de Z es Z ( Caso c) libro )
+            // El padre del sucesor de Z es Z.
 
             // Caso raíz árbol: donde se cumpla que el padre del sucesor de la raíz(Z) es Z: 
             // La raíz del árbol es reemplazada por el sucesor de Z.
@@ -267,21 +267,9 @@ public:
             treeTransplant( z, y );
             y->left = z->left;
             y->left->p = y;
-
         }
-
-        /*
-         *  Lines 5–12 deal with the remaining two
-         *  cases, in which z has two children. Line 5 finds node y, which is the successor
-         *  of z. Because z has a nonempty right subtree, its successor must be the node in
-         *  that subtree with the smallest key; hence the call to T REE-MINIMUM (z.right). As
-         *  we noted before, y has no left child. We want to splice y out of its current location,
-         *  and it should replace z in the tree. If y is z´s right child, then lines 10–12 replace  ́
-         *  as a child of its parent by y and replace y’s left child by z’s left child. If y is
-         *  not z’s left child, lines 7–9 replace y as a child of its parent by y’s right child and
-         *  turn z’s right child into y’s right child, and then lines 10–12 replace z as a child of
-         *  its parent by y and replace y’s left child by z’s left child.  
-         */
+        
+        return z;
     };
     // Saca del arbol la llave contenida en el nodo apuntado por z.
     // Devuelve la direccion del nodo eliminado para que se pueda 
