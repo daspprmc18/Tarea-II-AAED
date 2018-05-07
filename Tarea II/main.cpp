@@ -92,6 +92,11 @@ int main(int argc, char** argv) {
         tree.inorderTreeWalk(tree.getRoot(), stack);
         printStack(stack);
 
+        //std::stack<Integer> stack2;
+        //tree2.inorderTreeWalk(tree2.getRoot(), stack2);
+        //printStack(stack2);
+
+
 
 
         std::cout << "El sucesor de  6  es: " << tree.treeSuccessor(node5)->key << " \n\n";
@@ -119,7 +124,7 @@ void printStack(stack<Integer> &stk) {
     std::cout << "Pila: Recorrido en Orden \n\n";
     while (!stk.empty()) {
 
-        std::cout << "|" << std::setw(8)  << stk.top() << " |\n";
+        std::cout << "|" << std::setw(8) << stk.top() << " |\n";
         stk.pop();
     }
     std::cout << " _ _ _ _ _  \n\n";

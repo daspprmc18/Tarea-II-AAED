@@ -79,6 +79,17 @@ private:
             v->p = u->p; // V y U deben tener el mismo padre.( Ahora el padre de V es el padre de U )
     };
 
+    void copyTree (node<T>* c) {
+
+        if ( c ) { // Si C es distinto de NULL
+
+            node<T> * temp = new node<T>( c->key, nullptr, nullptr, nullptr );
+            treeInsert( temp );
+            copyTree( c->left ); // Copia subárbol izquierdo de C.
+            copyTree( c->right ); // Copia subárbol derecho de C.
+        }
+    };
+
 public:
 
     tree () : root (nullptr) {
@@ -86,6 +97,8 @@ public:
     // Constructor. Crea un arbol vacio
 
     tree (const tree<T>& obj) {
+
+        copyTree( obj.root );
     };
     // Constructor copia
 
@@ -98,9 +111,9 @@ public:
 
         if ( x ) { // Si el subárbol actual no está vació.
 
-            inorderTreeWalk( x->left, pila ); // Recorre en orden subárbol izquierdo.
+            inorderTreeWalk( x->left, pila ); // Recorre en orden: subárbol izquierdo.
             pila.push( x->key ); // Apila el elemento apuntado por X.
-            inorderTreeWalk( x->right, pila ); // Recorre en orden subárbol derecho.
+            inorderTreeWalk( x->right, pila ); // Recorre en orden: subárbol derecho.
         }
     };
     // Efectua un recorrido en orden del subrbol cuya raiz es apuntada
