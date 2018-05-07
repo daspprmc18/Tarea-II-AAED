@@ -34,7 +34,7 @@ public:
 
         delete left;
         delete right;
-        std::cout << "Eliminando Nodo " << key << "\n\n";
+        //std::cout << "Eliminando Nodo " << key << "\n\n";
     }
 };
 

@@ -74,32 +74,42 @@ int main(int argc, char** argv) {
          */
     } else { // Código de prueba para Árbol binario.
 
-        tree<Integer> tree;
+        tree<Integer> t1;
 
         node<Integer> * node1 = new node<Integer>(15, nullptr, nullptr, nullptr);
         node<Integer> * node2 = new node<Integer>(6, nullptr, nullptr, nullptr);
-        node<Integer> * node3 = new node<Integer>(52, nullptr, nullptr, nullptr);
+        node<Integer> * node3 = new node<Integer>(18, nullptr, nullptr, nullptr);
         node<Integer> * node4 = new node<Integer>(3, nullptr, nullptr, nullptr);
-        node<Integer> * node5 = new node<Integer>(7, nullptr, nullptr, nullptr);
+        node<Integer> * node5 = new node<Integer>(2, nullptr, nullptr, nullptr);
+        node<Integer> * node6 = new node<Integer>(4, nullptr, nullptr, nullptr);
+        node<Integer> * node7 = new node<Integer>(7, nullptr, nullptr, nullptr);
+        node<Integer> * node8 = new node<Integer>(13, nullptr, nullptr, nullptr);
+        node<Integer> * node9 = new node<Integer>(9, nullptr, nullptr, nullptr);
+        node<Integer> * node10 = new node<Integer>(20, nullptr, nullptr, nullptr);
+        node<Integer> * node11 = new node<Integer>(17, nullptr, nullptr, nullptr);
 
-        tree.treeInsert(node1);
-        tree.treeInsert(node2);
-        tree.treeInsert(node3);
-        tree.treeInsert(node4);
-        tree.treeInsert(node5);
+        t1.treeInsert(node1);
+        t1.treeInsert(node2);
+        t1.treeInsert(node3);
+        t1.treeInsert(node4);
+        t1.treeInsert(node5);
+        t1.treeInsert(node6);
+        t1.treeInsert(node7);
+        t1.treeInsert(node8);
+        t1.treeInsert(node9);
+        t1.treeInsert(node10);
+        t1.treeInsert(node11);
 
-        std::stack<Integer> stack;
-        tree.inorderTreeWalk(tree.getRoot(), stack);
-        printStack(stack);
+        /* std::stack<Integer> stack;
+         t1.inorderTreeWalk(t1.getRoot(), stack);
+         printStack(stack);
 
-        //std::stack<Integer> stack2;
-        //tree2.inorderTreeWalk(tree2.getRoot(), stack2);
-        //printStack(stack2);
+         tree<Integer> t2(t1);
+         std::stack<Integer> stack2;
+         t2.inorderTreeWalk(t2.getRoot(), stack2);
+         printStack(stack2);
 
-
-
-
-        std::cout << "El sucesor de  6  es: " << tree.treeSuccessor(node5)->key << " \n\n";
+         std::cout << "El sucesor de  13  es: " << t1.treeSuccessor(node8)->key << " \n\n";*/
     }
 
     return 0;
