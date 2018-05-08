@@ -13,6 +13,7 @@ typedef std::mt19937 RandomNumberGenerator;
 
 void printList(const llist<Integer> &list);
 void printStack(stack<Integer> &stk);
+tree<Integer> * buildSequentialTree(const Integer& n);
 
 int main(int argc, char** argv) {
 
@@ -27,13 +28,8 @@ int main(int argc, char** argv) {
     // Código de prueba para Lista enlazada.
     if (!option) {
 
-        /*
-         *  Inserte en una lista vacía n = 1 000 000 de nodos cuyas llaves sean enteros seleccio-
-         *  nados aleatoriamente en el rango [0, 2n[. Seleccione elementos al azar en el mismo
-         *  rango [0, 2n[ y búsquelos en la lista (estén o no en ella) registrando el número de
-         *  búsquedas realizadas en un lapso de diez segundos.
-         */
-        {
+        { // Lista Enlazada: Elementos aleatorios.
+
             llist<Integer> randomList;
             llnode<Integer> * randomNode = nullptr;
 
@@ -44,20 +40,26 @@ int main(int argc, char** argv) {
                 randomNode = nullptr;
             }
 
-            return 0;
+            std::cout << "----> Lista Enlazada Aleatoria <----:\n\n";
+            Integer count = 0;
+            std::chrono::seconds elapsed(0);
+            std::chrono::system_clock::time_point finish;
+            std::chrono::system_clock::time_point start = std::chrono::system_clock::now();
 
-            for (int i = 0; i < 10; ++i) {
+            while (elapsed.count() < 10) {
 
                 randomList.listSearch(distribution(generator));
+                ++count;
+                finish = std::chrono::system_clock::now();
+                elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
             }
+
+            std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
+            std::cout << "Número de búsquedas realizadas: Lista aleatoria: " << count << "\n\n";
         }
 
-        /*
-         *  Inserte en una lista vacía las llaves 0, 1, ..., n − 1, en ese orden. Seleccione elementos
-         *  al azar en el rango [0, 2n[, y registre el número de búsquedas que se logró hacer en
-         *  un lapso de 10 segundos. 
-         */
-        {
+        { // Lista Enlazada: Elementos secuenciales.
+
             llist<Integer> sequentialList;
             llnode<Integer> * sequentialNode = nullptr;
 
@@ -68,18 +70,23 @@ int main(int argc, char** argv) {
                 sequentialNode = nullptr;
             }
 
-            for (int i = 0; i < 10; ++i) {
+            std::cout << "----> Lista Enlazada Secuencial <---- :\n\n";
+            Integer count = 0;
+            std::chrono::seconds elapsed(0);
+            std::chrono::system_clock::time_point finish;
+            std::chrono::system_clock::time_point start = std::chrono::system_clock::now();
+
+            while (elapsed.count() < 10) {
 
                 sequentialList.listSearch(distribution(generator));
+                ++count;
+                finish = std::chrono::system_clock::now();
+                elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
             }
-        }
 
-        /*
-         *  Indique si en alguno de los dos casos (inserción de números aleatorios o inserción
-         *  de números secuenciales) se realizó una cantidad de búsquedas (exitosas o fallidas,
-         *  no importa) sustancialmente mayor que en el otro (más del doble), e indique si
-         *  esto corresponde a lo esperado.
-         */
+            std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
+            std::cout << "Número de búsquedas realizadas: Lista secuencial: " << count << "\n\n";
+        }
     } else { // Código de prueba para Árbol binario.
 
         { // Árbol Binario Búsqueda: Elementos aleatorios.
@@ -93,7 +100,7 @@ int main(int argc, char** argv) {
                 randomNode = nullptr;
             }
 
-            std::cout << "Corre tiempo\n\n";
+            std::cout << "----> Arból Binario Aleatorio <----\n\n";
             Integer count = 0;
             std::chrono::seconds elapsed(0);
             std::chrono::system_clock::time_point finish;
@@ -101,7 +108,7 @@ int main(int argc, char** argv) {
 
             while (elapsed.count() < 10) {
 
-                randomTree.treeSearch(distribution(generator));
+                randomTree.iterativeTreeSearch(distribution(generator));
                 ++count;
                 finish = std::chrono::system_clock::now();
                 elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
@@ -111,18 +118,12 @@ int main(int argc, char** argv) {
             std::cout << "Número de búsquedas realizadas: Árbol aleatorio: " << count << "\n\n";
         }
 
-        /*{ // Árbol Binario Búsqueda: Elementos secuenciales.
-        
+        { // Árbol Binario Búsqueda: Elementos secuenciales.
+
             tree<Integer> sequentialTree;
-            node<Integer> * sequentialNode = nullptr;
+            sequentialTree.buildTreeSequential(n);
 
-            for (Integer i = 0; i < n; ++i) {
-
-                sequentialNode = new node<Integer>(i, nullptr, nullptr, nullptr);
-                sequentialTree.treeInsert(sequentialNode);
-                sequentialNode = nullptr;
-            }
-
+            std::cout << "----> Arból Binario Secuencial <----\n\n";
             Integer count = 0;
             std::chrono::seconds elapsed(0); // Tiempo transcurrido.
             std::chrono::system_clock::time_point finish; // Tiempo final.
@@ -130,7 +131,7 @@ int main(int argc, char** argv) {
 
             while (elapsed.count() < 10) {
 
-                sequentialTree.treeSearch(distribution(generator));
+                sequentialTree.iterativeTreeSearch(distribution(generator));
                 ++count;
                 finish = std::chrono::system_clock::now();
                 elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
@@ -138,7 +139,7 @@ int main(int argc, char** argv) {
 
             std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
             std::cout << "Número de búsquedas realizadas: Árbol secuencial " << count << "\n\n";
-        }*/
+        }
     }
 
     return 0;

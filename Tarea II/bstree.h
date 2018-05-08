@@ -90,6 +90,28 @@ private:
         }
     };
 
+    void buildSequentialTree (const T& n) {
+
+        node<T> * current = nullptr;
+        node<T> * temp = nullptr;
+        root = new node<T>( 0, nullptr, nullptr, nullptr );
+        current = root;
+
+        for ( T i = 1; i < n; ++i ) {
+
+            temp = new node<T>( i, current, nullptr, nullptr );
+            current->right = temp;
+            current = current->right;
+            temp = nullptr;
+        }
+    };
+
+public:
+
+    void buildTreeSequential (const T& n) {
+        buildSequentialTree( n );
+    }
+
 public:
 
     tree () : root (nullptr) {
@@ -268,7 +290,7 @@ public:
             y->left = z->left;
             y->left->p = y;
         }
-        
+
         return z;
     };
     // Saca del arbol la llave contenida en el nodo apuntado por z.
