@@ -17,7 +17,7 @@ void printStack(stack<Integer> &stk);
 int main(int argc, char** argv) {
 
     int option = 1;
-    Integer n = 100;
+    Integer n = 1000000;
     Integer mulFactor = (2 * n) - 1;
 
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count(); // Reloj del sistema.
@@ -83,6 +83,7 @@ int main(int argc, char** argv) {
     } else { // Código de prueba para Árbol binario.
 
         { // Árbol Binario Búsqueda: Elementos aleatorios.
+
             tree<Integer> randomTree;
             node<Integer> * randomNode = nullptr;
 
@@ -92,6 +93,7 @@ int main(int argc, char** argv) {
                 randomNode = nullptr;
             }
 
+            std::cout << "Corre tiempo\n\n";
             Integer count = 0;
             std::chrono::seconds elapsed(0);
             std::chrono::system_clock::time_point finish;
@@ -106,10 +108,11 @@ int main(int argc, char** argv) {
             }
 
             std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
-            std::cout << "Número de búsquedas realizadas: " << count << "\n\n";
+            std::cout << "Número de búsquedas realizadas: Árbol aleatorio: " << count << "\n\n";
         }
 
-        { // Árbol Binario Búsqueda: Elementos secuenciales.
+        /*{ // Árbol Binario Búsqueda: Elementos secuenciales.
+        
             tree<Integer> sequentialTree;
             node<Integer> * sequentialNode = nullptr;
 
@@ -119,7 +122,23 @@ int main(int argc, char** argv) {
                 sequentialTree.treeInsert(sequentialNode);
                 sequentialNode = nullptr;
             }
-        }
+
+            Integer count = 0;
+            std::chrono::seconds elapsed(0); // Tiempo transcurrido.
+            std::chrono::system_clock::time_point finish; // Tiempo final.
+            std::chrono::system_clock::time_point start = std::chrono::system_clock::now(); // Tiempo inicial.
+
+            while (elapsed.count() < 10) {
+
+                sequentialTree.treeSearch(distribution(generator));
+                ++count;
+                finish = std::chrono::system_clock::now();
+                elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
+            }
+
+            std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
+            std::cout << "Número de búsquedas realizadas: Árbol secuencial " << count << "\n\n";
+        }*/
     }
 
     return 0;
