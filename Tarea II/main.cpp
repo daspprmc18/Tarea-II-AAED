@@ -89,7 +89,7 @@ int main(int argc, char** argv) {
         }
     } else { // Código de prueba para Árbol binario.
 
-        { // Árbol Binario Búsqueda: Elementos aleatorios.
+        /*{ // Árbol Binario Búsqueda: Elementos aleatorios.
 
             tree<Integer> randomTree;
             node<Integer> * randomNode = nullptr;
@@ -116,14 +116,14 @@ int main(int argc, char** argv) {
 
             std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
             std::cout << "Número de búsquedas realizadas: Árbol aleatorio: " << count << "\n\n";
-        }
+        }*/
 
         { // Árbol Binario Búsqueda: Elementos secuenciales.
 
             tree<Integer> sequentialTree;
             sequentialTree.buildTreeSequential(n);
 
-            std::cout << "----> Arból Binario Secuencial <----\n\n";
+            /*std::cout << "----> Arból Binario Secuencial <----\n\n";
             Integer count = 0;
             std::chrono::seconds elapsed(0); // Tiempo transcurrido.
             std::chrono::system_clock::time_point finish; // Tiempo final.
@@ -138,7 +138,7 @@ int main(int argc, char** argv) {
             }
 
             std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
-            std::cout << "Número de búsquedas realizadas: Árbol secuencial " << count << "\n\n";
+            std::cout << "Número de búsquedas realizadas: Árbol secuencial " << count << "\n\n";*/
         }
     }
 
