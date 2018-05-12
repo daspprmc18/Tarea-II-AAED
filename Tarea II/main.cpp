@@ -9,7 +9,6 @@
 #include "llist.h"
 
 typedef long int Integer;
-typedef std::mt19937 RandomNumberGenerator;
 
 void printList(const llist<Integer> &list);
 void printStack(stack<Integer> &stk);
@@ -17,13 +16,14 @@ tree<Integer> * buildSequentialTree(const Integer& n);
 
 int main(int argc, char** argv) {
 
-    int option = 1;
+    int option = 0;
     Integer n = 1000000;
-    Integer mulFactor = (2 * n) - 1;
+    Integer min = 0;
+    Integer max = (2 * n) - 1;
 
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count(); // Reloj del sistema.
-    RandomNumberGenerator generator(seed); // Generador 
-    std::uniform_int_distribution<uint32_t> distribution(0, mulFactor); // Rango [0 2n[.
+    std::random_device rd; // Produce semilla para el generador Mersenne Twister.
+    std::mt19937 engine(rd()); // Generador de números aleatorios "Mersenne Twister 19937"
+    std::uniform_int_distribution<Integer> distribution(min, max); // Rango distribución uniforme: [0,2n-1]
 
     // Código de prueba para Lista enlazada.
     if (!option) {
@@ -35,12 +35,12 @@ int main(int argc, char** argv) {
 
             for (Integer i = 0; i < n; ++i) {
 
-                randomNode = new llnode<Integer>(distribution(generator), nullptr, nullptr);
+                randomNode = new llnode<Integer>(distribution(engine), nullptr, nullptr);
                 randomList.listInsert(randomNode);
                 randomNode = nullptr;
             }
 
-            std::cout << "----> Lista Enlazada Aleatoria <----:\n\n";
+            std::cout << "----> Lista Enlazada Aleatoria <----\n\n";
             Integer count = 0;
             std::chrono::seconds elapsed(0);
             std::chrono::system_clock::time_point finish;
@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
 
             while (elapsed.count() < 10) {
 
-                randomList.listSearch(distribution(generator));
+                randomList.listSearch(distribution(engine));
                 ++count;
                 finish = std::chrono::system_clock::now();
                 elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
@@ -70,7 +70,7 @@ int main(int argc, char** argv) {
                 sequentialNode = nullptr;
             }
 
-            std::cout << "----> Lista Enlazada Secuencial <---- :\n\n";
+            std::cout << "----> Lista Enlazada Secuencial <---- \n\n";
             Integer count = 0;
             std::chrono::seconds elapsed(0);
             std::chrono::system_clock::time_point finish;
@@ -78,7 +78,7 @@ int main(int argc, char** argv) {
 
             while (elapsed.count() < 10) {
 
-                sequentialList.listSearch(distribution(generator));
+                sequentialList.listSearch(distribution(engine));
                 ++count;
                 finish = std::chrono::system_clock::now();
                 elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
@@ -95,7 +95,7 @@ int main(int argc, char** argv) {
             node<Integer> * randomNode = nullptr;
 
             for (Integer i = 0; i < n; ++i) {
-                randomNode = new node<Integer>(distribution(generator), nullptr, nullptr, nullptr);
+                randomNode = new node<Integer>(distribution(engine), nullptr, nullptr, nullptr);
                 randomTree.treeInsert(randomNode);
                 randomNode = nullptr;
             }
@@ -108,7 +108,7 @@ int main(int argc, char** argv) {
 
             while (elapsed.count() < 10) {
 
-                randomTree.iterativeTreeSearch(distribution(generator));
+                randomTree.iterativeTreeSearch(distribution(engine));
                 ++count;
                 finish = std::chrono::system_clock::now();
                 elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
@@ -131,7 +131,7 @@ int main(int argc, char** argv) {
 
             while (elapsed.count() < 10) {
 
-                sequentialTree.iterativeTreeSearch(distribution(generator));
+                sequentialTree.iterativeTreeSearch(distribution(engine));
                 ++count;
                 finish = std::chrono::system_clock::now();
                 elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
