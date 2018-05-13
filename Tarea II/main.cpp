@@ -23,7 +23,7 @@ int main(int argc, char** argv) {
 
     std::random_device rd; // Produce semilla para el generador Mersenne Twister.
     std::mt19937 engine(rd()); // Generador de números aleatorios "Mersenne Twister 19937"
-    std::uniform_int_distribution<Integer> distribution(min, max); // Rango distribución uniforme: [0,2n-1]
+    std::uniform_int_distribution<Integer> distribution(min, max); // Rango distribución uniforme: [0,2n-1].
 
     // Código de prueba para Lista enlazada.
     if (!option) {
@@ -106,7 +106,7 @@ int main(int argc, char** argv) {
         }
     } else { // Código de prueba para Árbol binario.
 
-        { // Árbol Binario Búsqueda: Elementos aleatorios.
+        /*{ // Árbol Binario Búsqueda: Elementos aleatorios.
 
             tree<Integer> randomTree;
             node<Integer> * randomNode = nullptr;
@@ -133,7 +133,7 @@ int main(int argc, char** argv) {
 
             std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
             std::cout << "Número de búsquedas realizadas: Árbol aleatorio: " << count << "\n\n";
-        }
+        }*/
 
         { // Árbol Binario Búsqueda: Elementos secuenciales.
 
