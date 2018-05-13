@@ -145,25 +145,34 @@ int main(int argc, char** argv) {
 
         { // Árbol Binario Búsqueda: Elementos secuenciales.
 
-            //tree<Integer> sequentialTree;
-            //sequentialTree.buildTreeSequential(n);
+            tree<Integer> sequentialTree;
+            sequentialTree.buildTreeSequential(n);
 
-            /*std::cout << "----> Arból Binario Secuencial <----\n\n";
+            std::cout << "----> Arból Binario Secuencial <----\n\n";
             Integer count = 0;
+            Integer found = 0;
+            Integer notFound = 0;
             std::chrono::seconds elapsed(0); // Tiempo transcurrido.
             std::chrono::system_clock::time_point finish; // Tiempo final.
             std::chrono::system_clock::time_point start = std::chrono::system_clock::now(); // Tiempo inicial.
 
             while (elapsed.count() < 10) {
 
-                sequentialTree.iterativeTreeSearch(distribution(engine));
+                if (sequentialTree.iterativeTreeSearch(distribution(engine)))
+                    ++found;
+                else
+                    ++notFound;
+
                 ++count;
                 finish = std::chrono::system_clock::now();
                 elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
             }
 
             std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
-            std::cout << "Número de búsquedas realizadas: Árbol secuencial " << count << "\n\n";*/
+            std::cout << "Número de búsquedas realizadas: Árbol secuencial " << count << "\n\n";
+            std::cout << "Número de búsquedas exitosas: " << found << "\n\n";
+            std::cout << "Número de búsquedas fallidas: " << notFound << "\n\n";
+
         }
     }
 
