@@ -51,10 +51,11 @@ int main(int argc, char** argv) {
 
             while (elapsed.count() < 10) {
 
-                if (randomList.listSearch(distribution(engine))) // Si buscar devuelve un puntero distinto de NULL.
+                randomList.listSearch(distribution(engine));
+                /*if (randomList.listSearch(distribution(engine))) // Si buscar devuelve un puntero distinto de NULL.
                     ++found;
                 else
-                    ++notFound;
+                    ++notFound;*/
 
                 ++count;
                 finish = std::chrono::system_clock::now();
@@ -63,8 +64,8 @@ int main(int argc, char** argv) {
 
             std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
             std::cout << "Número de búsquedas realizadas: Lista aleatoria: " << count << "\n\n";
-            std::cout << "Número de búsquedas exitosas: " << found << "\n\n";
-            std::cout << "Número de búsquedas fallidas: " << notFound << "\n\n";
+            //std::cout << "Número de búsquedas exitosas: " << found << "\n\n";
+            //std::cout << "Número de búsquedas fallidas: " << notFound << "\n\n";
         }
 
         { // Lista Enlazada: Elementos secuenciales.
@@ -89,10 +90,11 @@ int main(int argc, char** argv) {
 
             while (elapsed.count() < 10) {
 
-                if (sequentialList.listSearch(distribution(engine)))
+                sequentialList.listSearch(distribution(engine));
+                /*if (sequentialList.listSearch(distribution(engine)))
                     ++found; // Llave encontrada.
                 else
-                    ++notFound; // Llave no encontrada.
+                    ++notFound; // Llave no encontrada.*/
 
                 ++count;
                 finish = std::chrono::system_clock::now();
@@ -101,12 +103,12 @@ int main(int argc, char** argv) {
 
             std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
             std::cout << "Número de búsquedas realizadas: Lista secuencial: " << count << "\n\n";
-            std::cout << "Número de búsquedas exitosas: " << found << "\n\n";
-            std::cout << "Número de búsquedas fallidas: " << notFound << "\n\n";
+            //std::cout << "Número de búsquedas exitosas: " << found << "\n\n";
+            //std::cout << "Número de búsquedas fallidas: " << notFound << "\n\n";
         }
     } else { // Código de prueba para Árbol binario.
 
-        /*{ // Árbol Binario Búsqueda: Elementos aleatorios.
+        { // Árbol Binario Búsqueda: Elementos aleatorios.
 
             tree<Integer> randomTree;
             node<Integer> * randomNode = nullptr;
@@ -133,7 +135,7 @@ int main(int argc, char** argv) {
 
             std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
             std::cout << "Número de búsquedas realizadas: Árbol aleatorio: " << count << "\n\n";
-        }*/
+        }
 
         { // Árbol Binario Búsqueda: Elementos secuenciales.
 
