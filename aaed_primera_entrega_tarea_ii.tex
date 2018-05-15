@@ -1,0 +1,129 @@
+\documentclass[twocolumn,english,spanish,journal]{IEEEtran}
+
+\usepackage{newtxmath}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\synctex=-1
+\usepackage{babel}
+\addto\shorthandsspanish{\spanishdeactivate{~<>}}
+
+\usepackage{float}
+\usepackage{booktabs}
+\usepackage{calc}
+\usepackage[unicode=true,pdfusetitle,
+bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
+breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=false]
+{hyperref}
+
+
+\makeatletter
+
+\providecommand{\tabularnewline}{\\}
+\floatstyle{ruled}
+\newfloat{algorithm}{tbp}{loa}
+\providecommand{\algorithmname}{Algoritmo}
+\floatname{algorithm}{\protect\algorithmname}
+
+\let\oldforeign@language\foreign@language
+\DeclareRobustCommand{\foreign@language}[1]{%
+	\lowercase{\oldforeign@language{#1}}}
+
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepgfplotslibrary{groupplots}
+\pgfkeys{/pgf/number format/.cd, set thousands separator=\,}
+
+\usepackage{listings}
+\addto\captionsenglish{\renewcommand{\algorithmname}{Algorithm}}
+\addto\captionsenglish{\renewcommand{\lstlistingname}{Listing}}
+\addto\captionsspanish{\renewcommand{\algorithmname}{Algoritmo}}
+\addto\captionsspanish{\renewcommand{\lstlistingname}{Listado de código}}
+\renewcommand{\lstlistingname}{Listado de código}
+
+
+\begin{document}
+	
+\selectlanguage{spanish}
+	
+\markboth{Estructuras de Datos y Análisis de Algoritmos -- Tarea II -- Dennis Alberto Solano Padilla}{}
+
+\title{Estructuras de Datos}
+\author{Dennis Alberto Solano Padilla - B59304}
+\maketitle
+
+\begin{abstract}
+	En este trabajo se analiza la eficiencia de los métodos de búsqueda de las estructuras de datos: lista enlazada con nodo centinela y árbol binario de búsqueda. Para esto se recurrió a la programación eficiente de las estructuras en el lenguaje C++ y la ejecución de pruebas con elementos aleatorios y secuenciales. El resultado fue un conjunto de datos numéricos que permiten comparar la eficiencia de las estructuras y hallar ventajas y desventajas. Se concluye que los árboles binarios son más eficientes al buscar elementos que las listas enlazadas, debido a su ventaja estructural que les permite realizar una menor cantidad de comparaciones.
+\end{abstract}
+
+\section{Introducción}
+En este trabajo se busca analizar, comprender, comparar e implementar estructuras de datos y los algoritmos que nos permiten manipularlas.
+Las estructuras de datos son: lista enlazada con nodo centinela y árbol binario de búsqueda.\newline
+
+El eje principal está centrado en el desempeño de los métodos de búsqueda de cada estructura.
+Con el objetivo de determinar cual de ellas es la más rápida al buscar, se procede a implementar los algoritmos respectivos de la forma más eficiente, para ello se utiliza como recurso el libro \textbf{\textit{Introduction to Algorithms, Third Editionn }} de Cormen y colaboradores. Además se utilizan librerías externas para poder manipular los tiempos de ejecución de los algoritmos.
+
+\section{Metodología}
+Para lograr lo propuesto se implementaron las estructuras de datos en el lenguaje de programación C++ y se realizaron pruebas específicas para comparar la eficiencia de los 
+algoritmos.\newline
+
+Las pruebas se realizaron de la siguiente manera:\newline
+
+\begin{enumerate}
+	\item Se crearon dos estructuras de cada tipo, vacías.\newline
+	
+	\item En cada estructura se insertó un millón de nodos cuyas llaves son enteros, seleccionados de la siguiente forma:\newline 
+	
+	\begin{itemize}
+	\item Estructura uno, elementos seleccionados al azar en el rango $[0, 2000000)$.\newline
+	\item Estructura dos, elementos secuenciales $0, 1, ..., 999999$.\newline
+	\end{itemize}
+	
+	\item Durante un tiempo de diez segundos, se contó el número de búsquedas realizadas de elementos seleccionados al azar, en el rango $[0, 2000000)$ sin importar si estaban o no en la estructura.
+\end{enumerate}
+
+\section{Resultados}
+Los resultados de las búsquedas realizadas se muestran en el cuadro ~\ref{tab:tiempos}.
+
+\begin{table}
+	\caption{Búsquedas de las estructuras de datos.\label{tab:tiempos}}
+	\centering{}
+	
+	\begin{tabular}{lrrrrrrr}
+		\toprule 
+		                                 & \multicolumn{2}{c}{Cantidad de búsquedas}\tabularnewline
+		                                   \cmidrule{2-3}      
+		                                 & \multicolumn{2}{c}{Tipos de elementos}\tabularnewline
+	 	                                   \cmidrule{2-3} 
+		Estructuras         & Aleatorios & Secuenciales \tabularnewline 
+		\midrule 
+		Listas Enlazadas    & $3\,207$  & $4\,122$    \centering \tabularnewline	
+		\midrule
+		Árboles de Búsqueda & $11\,616\,259$  & $170$   \centering  \tabularnewline 
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+Los resultados obtenidos indican una gran diferencia entre las listas enlazadas y los árboles de búsquedas binarios con elementos aleatorios, este diferencia puede justificarse a la ventaja estructural del árbol binario, dado que los elementos en el árbol están organizados con respecto a una determinada llave, al hacer comparaciones sigue uno de dos caminos posibles lo que permite descartar una cantidad considerable de elementos; por otra parte, la lista enlazada tiene que pasar por todos los elementos que se hayan insertado antes del que se está buscando, lo cual la vuelve más lenta.\newline
+
+Existe un aspecto importante a tomar en cuenta, cuando se insertan elementos de forma secuencial en la lista enlazada, las llaves van a quedar ordenadas de mayor a menor pues se insertan al inicio, en cambio en el árbol binario de búsqueda, van a quedar ordenados de menor a mayor pues la raíz contiene la llave 0. Los resultados obtenidos indican una gran superioridad de las listas enlazadas contra los árboles binarios de búsqueda con datos secuenciales, se puede inferir que la mayor parte de los números aleatorios fueron considerablemente grandes, por lo que fue más fácil encontrarlos en la lista. Probablemente si la lista estuviera ordenada de menor a mayor los resultados serían muy parecidos.\newline
+
+A la pregunta ¿Por qué al insertar \textit{n} llaves ordenadas en un árbol de búsqueda binario puede tomar demasiado tiempo si n es
+grande?, se plantea la siguiente respuesta como resultado de las pruebas realizas: para insertar el \textit{i-ésimo} elemento se tuvieron que hacer previamente \textit{i-1} comparaciones, por ejemplo, para insertar el elemento $999$ se tuvieron que hacer $998$ comparaciones previamente, para insertar el elemento $998$ se tuvieron que hacer $997$ comparaciones previamente, y así, sucesivamente para cada uno de los elementos anteriores.\newline
+
+\section{Conclusiones}
+
+Los pruebas realizadas nos permiten conocer la eficiencia de cada una de las estructuras
+al buscar elementos, ya sea que estos se hayan insertado de forma aleatoria o secuencial.\newline
+
+A partir de los resultados se puede concluir que los árboles de búsqueda binarios son más eficientes que las listas enlazadas cuando se ingresan elementos al azar a la estructura; por otra parte cuando los elementos se ingresan de forma secuencial y se insertan al inicio en la lista enlazada, esta estructura es más eficiente que el árbol binario de búsqueda.\newline
+
+Los algoritmos de generación de números aleatorios influyen significativamente en los resultados obtenidos, en especial, cuando los elementos de las estructuras están ordenados secuencialmente.\newline
+
+Al utilizar el rango de elementos secuenciales $[0, n)$ y generar números aleatorios para buscar en el rango $[0, 2n)$, el número de búsquedas exitosas se puede ver afectado por la gran cantidad de números que se encuentran fuera del rango de los números secuenciales.\newline
+
+\bibliographystyle{IEEEtran}
+\section{Referencias}
+
+Thomas H.Cormen, Charles E. Leiserson, Ronald L. Rivest \& Clifford Stein. (2009). \textbf{\textit{Introduction to Algorithms, Third Edition}}. Cambridge, Massachusetts London, England: The MIT Press .
+
+\end{document}}
