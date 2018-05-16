@@ -230,7 +230,32 @@ public:
 
     void treeInsert (rbnode<T>* z) { //aux es y, actual es x.
 
+        rbnode<T> * trailing = nil;
+        rbnode<T> * current = root;
 
+        while ( current != nil ) {
+
+            trailing = current;      // T referencia al padre de C.
+
+            if ( z->key < current->key )
+                current = current->left;
+            else
+                current = current->right;
+        } // Finaliza cuando encuentra la posición adecuada para insertar el nodo Z.
+
+        z->p  = trailing;           // El padre de Z es el nodo al cual apunta T actualmente.
+
+        if ( trailing == nil )      // Árbol vacío.
+            root      = z;
+        else if ( z->key < trailing->key )
+            trailing->left   = z;   // Z es hijo izquierdo de T.
+        else
+            trailing->right  = z;   // Z es hijo derecho de T.
+
+        z->left  = nil;
+        z->right = nil;
+        z->color = RED;
+        insertFixup( z );
     };
     // Inserta el nodo z en la posicion que le corresponde en el arbol.
 
