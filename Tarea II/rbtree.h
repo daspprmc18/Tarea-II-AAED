@@ -38,6 +38,8 @@ public:
 
     ~rbnode () {
 
+        delete left;
+        delete right;
     }
 };
 
@@ -45,6 +47,83 @@ public:
 
 template <typename T>
 class rbtree {
+private:
+
+    rbnode<T> *root; // raiz del arbol
+    rbnode<T> *nil; // nodo nil (hoja) del arbol
+
+private:
+
+    // Caso #2
+    // Color: NEGRO: Abuelo, Tio
+    //         ROJO: Padre , Yo                    
+    //                                                   _ _ _ _ _ _ _ _ _ _ _ _ _ _
+    //                                               
+    //                     ( Abuelo ) <---- A           |                (A)        |
+    //                    /          \                  |               /   \       |
+    //     X ----> (Padre)            (Tio) <---- T     | Zig-Zag:   (X)            |
+    //            /       \                             |           /   \           |
+    //                     (Yo) <---- Y                 |                (Y)        |    
+    //                                                   _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    void leftRotate (rbnode<T> * x) {
+
+        rbnode<T> * y = x->right; // Nodo en violación ( Y ).
+        x->right = y->left; // Convirte el subárbol izquierdo del nodo Y en el subárbol derecho del nodo X.
+
+        if ( y->left != nil )
+            y->left.p = x; // Enlaza el padre del hijo izquierdo de Y con X.
+
+        y->p = x.p; // Enlaza el padre de X con Y.
+
+        if ( x.p == nil )
+            root = y;
+        else if ( x == x->p->left )
+            x->p->left = y;
+        else
+            x->p->right = y;
+
+        y->left = x; // Posiciona a X como hijo izquierdo de Y.
+        x.p = y;
+    } // AL finalizar se produjo un cambio de paternidad entre X y Y.
+
+
+    // Caso #2
+    // Color: NEGRO: Abuelo, Tio
+    //         ROJO: Padre , Yo
+    //                                                       _ _ _ _ _ _ _ _ _ _ _ _ _ _    
+    //    
+    //                     ( Abuelo ) <---- A               |            (A)            |
+    //                    /          \                      |           /   \           |
+    //       T ----> (Tio)            (Padre) <---- X       | Zig-Zag:       (X)        |
+    //                               /       \              |               /   \       |
+    //                   Y ----> (Yo)                       |             (Y)           |
+    //                                                       _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    void rightRotate (rbnode<T> * x) {
+
+        rbnode<T> * y = x->left; // Nodo en violación ( Y ).
+        x->left = y->right; // Convierte el subárbol izquierdo del nodo X, en el subárbol derecho del nodo Y.
+
+        if ( y->right != nil )
+            y->right->p = x; // Enlaza el padre del hijo derecho de Y con X.
+
+        y->p = x->p; // Enlaza el padre de X con Y.
+
+        if ( x.p == nil )
+            root = y;
+        else if ( x == x->p->right )
+            x->p->right = y;
+        else
+            x->p->left = y;
+
+        y->right = x; // Posiciona a X como hijo derecho de Y.
+        x.p = y;
+
+    } // AL finalizar se produjo un cambio de paternidad entre X y Y.
+
+
+
 public:
 
     rbtree () {
@@ -56,10 +135,11 @@ public:
     // Constructor copia
 
     ~rbtree () {
+        delete root;
     };
     // Destructor (borra el arbol)
 
-    void inorderTreeWalk (rbnode<T>* x, std::stack<T> & pila) {
+    void inorderTreeWalk (rbnode<T>* x, std::stack<T> & pila) const {
     };
     // Efectua un recorrido en orden del subarbol cuya raz es apuntada
     // por x. En cada visita apila la llave de cada nodo y su color.
@@ -71,31 +151,33 @@ public:
     // contener las llaves de los nodos del subrbol (y su color) 
     // ordenadas de mayor a menor.
 
-    rbnode<T>* treeSearch (const T& k) {
+    rbnode<T>* treeSearch (const T& k) const {
     };
     // Busca la llave recursivamente, si la encuentra devuelve un 
     // puntero al nodo que la contiene, sino devuelve NULL.
 
-    rbnode<T>* iterativeTreeSearch (const T& k) {
+    rbnode<T>* iterativeTreeSearch (const T& k) const {
     };
     // Igual que en el anterior pero usa un procedimiento iterativo.
 
-    rbnode<T>* treeMinimum () {
+    rbnode<T>* treeMinimum () const {
     };
     // Devuelve el nodo con la llave menor.
     // Si el arbol esta vacio devuelve NULL.
 
-    rbnode<T>* treeMaximum () {
+    rbnode<T>* treeMaximum () const {
     };
     // Devuelve el nodo con la llave mayor.
     // Si el arbol esta vacio devuelve NULL.
 
-    rbnode<T>* treeSuccessor (const rbnode<T>* x) {
+    rbnode<T>* treeSuccessor (const rbnode<T>* x) const {
     };
     // Devuelve el nodo cuya llave es la siguiente mas grande que 
     // la del nodo x. Si no existe tal nodo devuelve NULL.
 
     void treeInsert (rbnode<T>* z) { //aux es y, actual es x.
+
+
     };
     // Inserta el nodo z en la posicion que le corresponde en el arbol.
 
@@ -115,11 +197,6 @@ public:
         return this->nil;
     };
     // Devuelve T.nil. (Para efectos de revision de la tarea).
-
-private:
-
-    rbnode<T> *root; // raiz del arbol
-    rbnode<T> *nil; // nodo nil (hoja) del arbol
 
 };
 
