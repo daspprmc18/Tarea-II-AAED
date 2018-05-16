@@ -6,7 +6,7 @@
 
 enum colors {
     RED, BLACK
-};
+} ;
 
 // Nodos del arbol:
 
@@ -41,7 +41,7 @@ public:
         delete left;
         delete right;
     }
-};
+} ;
 
 // Arbol:
 
@@ -54,7 +54,7 @@ private:
 
 private:
 
-    // Caso #2
+    // Caso #2.1
     // Color: NEGRO: Abuelo, Tio
     //         ROJO: Padre , Yo                    
     //                                                   _ _ _ _ _ _ _ _ _ _ _ _ _ _
@@ -66,29 +66,30 @@ private:
     //                     (Yo) <---- Y                 |                (Y)        |    
     //                                                   _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-    void leftRotate (rbnode<T> * x) {
+    void leftRotate (rbnode<T> * x) {  // Rotación izquierda porque X se va a convertir en hijo izquierdo de Y.
 
-        rbnode<T> * y = x->right; // Nodo en violación ( Y ).
-        x->right = y->left; // Convirte el subárbol izquierdo del nodo Y en el subárbol derecho del nodo X.
+        rbnode<T> * y = x->right;      // Nodo en violación ( Y ).
+        x->right      = y->left;       // Convirte el subárbol izquierdo del nodo Y en el subárbol derecho del nodo X.
 
         if ( y->left != nil )
-            y->left.p = x; // Enlaza el padre del hijo izquierdo de Y con X.
+            y->left.p = x;             // Enlaza el padre del hijo izquierdo de Y con X.
 
-        y->p = x.p; // Enlaza el padre de X con Y.
+        y->p = x.p;                    // Enlaza el padre de X con Y.
 
         if ( x.p == nil )
             root = y;
         else if ( x == x->p->left )
-            x->p->left = y;
+            x->p->left  = y;
         else
             x->p->right = y;
 
-        y->left = x; // Posiciona a X como hijo izquierdo de Y.
-        x.p = y;
+        y->left = x;                  // Posiciona a X como hijo izquierdo de Y.
+        x.p     = y;
+
     } // AL finalizar se produjo un cambio de paternidad entre X y Y.
 
 
-    // Caso #2
+    // Caso #2.2
     // Color: NEGRO: Abuelo, Tio
     //         ROJO: Padre , Yo
     //                                                       _ _ _ _ _ _ _ _ _ _ _ _ _ _    
@@ -100,29 +101,81 @@ private:
     //                   Y ----> (Yo)                       |             (Y)           |
     //                                                       _ _ _ _ _ _ _ _ _ _ _ _ _ _
 
-    void rightRotate (rbnode<T> * x) {
+    void rightRotate (rbnode<T> * x) {  // Rotación derecha porque X se va a convertir en hijo derecho de Y.
 
-        rbnode<T> * y = x->left; // Nodo en violación ( Y ).
-        x->left = y->right; // Convierte el subárbol izquierdo del nodo X, en el subárbol derecho del nodo Y.
+        rbnode<T> * y = x->left;        // Nodo en violación ( Y ).
+        x->left       = y->right;       // Convierte el subárbol izquierdo del nodo X, en el subárbol derecho del nodo Y.
 
         if ( y->right != nil )
-            y->right->p = x; // Enlaza el padre del hijo derecho de Y con X.
+            y->right->p = x;            // Enlaza el padre del hijo derecho de Y con X.
 
-        y->p = x->p; // Enlaza el padre de X con Y.
+        y->p = x->p;                    // Enlaza el padre de X con Y.
 
         if ( x.p == nil )
             root = y;
         else if ( x == x->p->right )
             x->p->right = y;
         else
-            x->p->left = y;
+            x->p->left  = y;
 
-        y->right = x; // Posiciona a X como hijo derecho de Y.
-        x.p = y;
+        y->right = x;                  // Posiciona a X como hijo derecho de Y.
+        x.p      = y;
 
     } // AL finalizar se produjo un cambio de paternidad entre X y Y.
 
+    void insertFixup (rbnode<T> * z) {
 
+        rbnode<T> * y = nullptr;
+        while ( z->p->color == RED ) { // El padre de Z es rojo.
+
+            if ( z->p == z->p->p->left ) { // El padre de Z es hijo izquierdo del abuelo de Z.
+
+                y = z->p->p->right; // Tío de Z.
+
+                if ( y->color == RED ) { // Tío de Z es rojo.
+                    // Itercambio de color generacional.
+                    z->p->color    = BLACK;       // Caso #1
+                    y->color       = BLACK;       // Caso #1
+                    z->p->p->color = RED;         // Caso #1
+                    z              = z->p->p;     // Caso #1
+
+                } else if ( z == z->p->right ) { // Z es hijo derecho de su padre. (Tío negro)
+                    // Intercambio paternidad entre Z y su padre.
+                    z = z->p;                     // Caso #2
+                    leftRotate( z );              // Caso #2
+
+                    // Intercambio de paternidad y de color generacional entre el padre de Z y su abuelo.
+                    z->p->color    = BLACK;       // Caso #3
+                    z->p->p->color = RED;         // Caso #3
+                    rightRotate( z->p->p );       // Caso #3
+
+                }
+
+            } else { // El padre de Z es hijo derecho del abuelo de Z.
+
+                y = z->p->p->left; // Tío de Z.
+
+                if ( y->color == RED ) { // Tío de Z es rojo.
+                    // Itercambio de color generacional.
+                    z->p->color    = BLACK;       // Caso #1
+                    y->color       = BLACK;       // Caso #1
+                    z->p->p->color = RED;         // Caso #1
+                    z              = z->p->p;     // Caso #1
+
+                } else if ( z == z->p->left ) { // Z es hijo izquierdo de su padre. (Tío negro)
+                    // Intercambio paternidad entre Z y su padre.
+                    z = z->p;                     // Caso #2
+                    rightRotate( z );             // Caso #2
+
+                    // Intercambio de paternidad y de color generacional entre el padre de Z y su abuelo.
+                    z->p->color    = BLACK;       // Caso #3
+                    z->p->p->color = RED;         // Caso #3
+                    leftRotate( z->p->p );        // Caso #3
+                }
+            }
+        }
+        root->color = BLACK;
+    }
 
 public:
 
@@ -198,6 +251,6 @@ public:
     };
     // Devuelve T.nil. (Para efectos de revision de la tarea).
 
-};
+} ;
 
 #endif // RED_BLACK_rbtree
