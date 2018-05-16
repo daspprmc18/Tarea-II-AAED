@@ -5,7 +5,9 @@
                    displayName="Header Files"
                    projectFiles="true">
       <itemPath>bstree.h</itemPath>
+      <itemPath>hasht.h</itemPath>
       <itemPath>llist.h</itemPath>
+      <itemPath>rbtree.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -44,9 +46,13 @@
       </compileType>
       <item path="bstree.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="hasht.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="llist.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="rbtree.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -72,9 +78,13 @@
       </compileType>
       <item path="bstree.h" ex="false" tool="3" flavor2="0">
       </item>
+      <item path="hasht.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="llist.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="rbtree.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>
