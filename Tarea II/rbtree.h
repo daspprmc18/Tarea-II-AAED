@@ -3,9 +3,15 @@
 
 #include <stdio.h>
 #include <stack>
+#include <stdlib.h>
+
+#include "bstree.h"
+
+using std::stack;
 
 enum colors {
-    RED, BLACK
+    RED,  // 0
+    BLACK // 1
 } ;
 
 // Nodos del arbol:
@@ -177,6 +183,38 @@ private:
         root->color = BLACK;
     }
 
+    node<T>* treeSearch (node<T>* c, const T& k) {
+
+        if ( c == nil || c->key == k )        // C es NIL o el elemento en el nodo apuntado por C es el que se busca.
+            return c;
+
+        if ( k < c->key )                     // K es menor que el elemento en el nodo apuntado por C.
+            return treeSearch( c->left, k );  // Buscar K en subárbol izquierdo.
+        else
+            return treeSearch( c->right, k ); // Buscar K en el subárbol derecho.
+    };
+
+    node<T>* treeMinimum (node<T>* x) const {
+
+        node<T>* current = x;
+
+        while ( current->left != nil )        // Mientras el nodo apuntado por C tenga hijo izquierdo  ( Nodo interno ).
+            current = current->left;          // Avanza C al hijo izquierdo de C.
+
+        return current;
+    };
+
+    void copyTree (node<T>* root) {
+
+        if ( root != nil ) {         // C es distinto de NIL.
+
+            node<T> * temp = new node<T>( root->key, nullptr, nullptr, nullptr, RED );
+            treeInsert( temp );
+            copyTree( root->left );  // Copia subárbol izquierdo de C.
+            copyTree( root->right ); // Copia subárbol derecho de C.
+        }
+    };
+
 public:
 
     rbtree () {
@@ -184,6 +222,7 @@ public:
     // Constructor (crea un arbol vacio)
 
     rbtree (const rbtree<T>& obj) {
+        copyTree( obj.root );
     };
     // Constructor copia
 
@@ -192,7 +231,15 @@ public:
     };
     // Destructor (borra el arbol)
 
-    void inorderTreeWalk (rbnode<T>* x, std::stack<T> & pila) const {
+    void inorderTreeWalk (rbnode<T>* x, stack<T> & pila) const {
+
+        if ( x != nil ) { // Si el subárbol actual no está vació.
+
+            inorderTreeWalk( x->left, pila ); // Recorre en orden: subárbol izquierdo.
+            pila.push( x->key ); // Apila el elemento apuntado por X.
+            ( x->color == RED ) ? pila.push( RED ) : pila.push( BLACK );
+            inorderTreeWalk( x->right, pila ); // Recorre en orden: subárbol derecho.
+        }
     };
     // Efectua un recorrido en orden del subarbol cuya raz es apuntada
     // por x. En cada visita apila la llave de cada nodo y su color.
@@ -205,30 +252,72 @@ public:
     // ordenadas de mayor a menor.
 
     rbnode<T>* treeSearch (const T& k) const {
+        return treeSearch( root, k );
     };
     // Busca la llave recursivamente, si la encuentra devuelve un 
     // puntero al nodo que la contiene, sino devuelve NULL.
 
     rbnode<T>* iterativeTreeSearch (const T& k) const {
+
+        node<T> * current = root;
+
+        while ( current != nil && current->key != k ) {   // Mientras C sea distinto de NIL ( Nodo interno ) y el elemento en el nodo apuntado por C no es K.
+
+            if ( k < current->key )                       // K es menor que el elemento en el nodo apuntado por C
+                current = current->left;                  // Buscar K en subárbol izquierdo.
+            else
+                current = current->right;                 // Buscar K en el subárbol derecho.
+        }
+        return current;
     };
     // Igual que en el anterior pero usa un procedimiento iterativo.
 
     rbnode<T>* treeMinimum () const {
+
+        node<T>* current = root;
+
+        while ( current->left != nil )  // Mientras el nodo apuntado por C tenga hijo izquierdo ( Nodo interno ).
+            current = current->left;    // Avanza C al hijo izquierdo de C.
+
+        return current;
     };
     // Devuelve el nodo con la llave menor.
     // Si el arbol esta vacio devuelve NULL.
 
     rbnode<T>* treeMaximum () const {
+
+        node<T> * current = root;
+
+        while ( current->right != nil )  // Mientras el nodo apuntado por C tenga hijo derecho ( Nodo interno ).
+            current = current->right;    // Avanza C al hijo derecho de C.
+
+        return current;
     };
     // Devuelve el nodo con la llave mayor.
     // Si el arbol esta vacio devuelve NULL.
 
     rbnode<T>* treeSuccessor (const rbnode<T>* x) const {
+
+        node<T>* y = nil;
+
+        if ( x->right != nil ) // Subárbol derecho de X no está vacío
+            return treeMinimum( x->right ); // El sucesor de X es el mínimo del subárbol derecho de X. 
+
+        y = x->p; // Y, padre del nodo apuntado por X. 
+
+        while ( y != nil && x == y->right ) { // Mientras Y no sea NIL y X sea hijo derecho de Y.
+
+            x = y; // Suba X un nivel ----> Ahora X apunta a su padre.
+            y = y->p; // Suba Y un nivel ----> Ahora Y apunta al abuelo de X / Padre de Y.
+
+        } // Finaliza cuando encuentra el primer ancestro en dirección noreste. " Es decir X es hijo izquierdo de Y".
+
+        return y;
     };
     // Devuelve el nodo cuya llave es la siguiente mas grande que 
     // la del nodo x. Si no existe tal nodo devuelve NULL.
 
-    void treeInsert (rbnode<T>* z) { //aux es y, actual es x.
+    void treeInsert (rbnode<T>* z) {
 
         rbnode<T> * trailing = nil;
         rbnode<T> * current = root;
