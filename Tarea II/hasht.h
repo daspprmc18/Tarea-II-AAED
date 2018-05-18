@@ -14,16 +14,22 @@ template <typename T>
 class hasht {
 public:
 
-    hasht(int nEntradas) {
+    hasht(int nEntradas) : numEntradas(nEntradas) {
 
         tabla.resize(nEntradas);        // Reestructura el tamaño del vector.
-        for (int i = 0; i < nEntradas; ++i)
-            tabla[i].resize(nEntradas); // Reestructura el tamaño de la lista.
+        for (int i = 0; i < numEntradas; ++i)
+            tabla[i].resize(numEntradas); // Reestructura el tamaño de la lista.
     };
     // Constructor que especifica el numero de cubetas (entradas) 
     // en la tabla
 
-    hasht(const hasht<T>& obj) : tabla(obj) { // Constructor de copia del vector.
+    hasht(const hasht<T>& obj) {
+
+        numEntradas = obj.numEntradas;
+        typename list<T>::iterator begin;
+        typename list<T>::iterator end;
+        
+        
     };
     // Constructor copia
 

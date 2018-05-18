@@ -145,6 +145,7 @@ int main(int argc, char** argv) {
     }*/
 
     hasht<Integer> hashTable1(10);
+    hasht<Integer> hashTable2(hashTable1);
     return 0;
 }
 
