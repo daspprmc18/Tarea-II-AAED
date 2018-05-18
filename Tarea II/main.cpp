@@ -7,6 +7,7 @@
 
 #include "bstree.h"
 #include "llist.h"
+#include "hasht.h"
 
 typedef long int Integer;
 
@@ -16,7 +17,7 @@ tree<Integer> * buildSequentialTree(const Integer& n);
 
 int main(int argc, char** argv) {
 
-    int option = 1;
+    // int option = 1;
     Integer n = 1000000;
     Integer min = 0;
     Integer max = (2 * n) - 1;
@@ -26,7 +27,7 @@ int main(int argc, char** argv) {
     std::uniform_int_distribution<Integer> distribution(min, max); // Rango distribución uniforme: [0,2n-1].
 
     // Código de prueba para Lista enlazada.
-    if (!option) {
+    /*if (!option) {
 
         { // Lista Enlazada: Elementos aleatorios.
 
@@ -141,8 +142,9 @@ int main(int argc, char** argv) {
             std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
             std::cout << "Número de búsquedas realizadas: Árbol secuencial " << count << "\n\n";
         }
-    }
+    }*/
 
+    hasht<Integer> hashTable1(10);
     return 0;
 }
 

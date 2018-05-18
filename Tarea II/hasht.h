@@ -3,37 +3,46 @@
 
 #include <list>
 #include <vector>
+#include <algorithm>
+
+using std::vector;
+using std::list;
+using std::fill;
 
 template <typename T>
 
 class hasht {
 public:
 
-    hasht (int nEntradas) {
+    hasht(int nEntradas) {
+
+        tabla.resize(nEntradas);        // Reestructura el tamaño del vector.
+        for (int i = 0; i < nEntradas; ++i)
+            tabla[i].resize(nEntradas); // Reestructura el tamaño de la lista.
     };
     // Constructor que especifica el numero de cubetas (entradas) 
     // en la tabla
 
-    hash (const hasht<T>& obj) {
+    hasht(const hasht<T>& obj) : tabla(obj) { // Constructor de copia del vector.
     };
     // Constructor copia
 
-    ~hasht () {
+    ~hasht() {
     };
     // Destructor (borra la tabla)
 
-    T* search (const T& item) {
+    T* search(const T& item) {
     };
     // Retorna un puntero a la llave o NULL si no se encuentra
 
-    void insert (const T& item) {
+    void insert(const T& item) {
     };
     // Inserta el elemento en la tabla
 
 private:
     int numEntradas;
     // Nmero de entradas en la tabla
-    std::vector< std::list<T> > tabla;
+    vector< list<T> > tabla;
     // La tabla es un vector de listas de STL
-};
+} ;
 #endif
