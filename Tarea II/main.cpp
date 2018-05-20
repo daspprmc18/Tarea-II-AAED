@@ -10,25 +10,30 @@
 #include "hasht.h"
 #include "rbtree.h"
 
+using std::cout;
+
 typedef long int Integer;
 
 void printList(const llist<Integer> &list);
 void printStack(stack<Integer> &stk);
 void testRandomRedBlackTree(std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n);
 void testSequientialRedBlackTree(std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n);
+void testRandomHashT(std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n);
+
 tree<Integer> * buildSequentialTree(const Integer& n);
 
 int main(int argc, char** argv) {
 
-    Integer n = 1000000;
+    Integer n = 10;
+    Integer * np = &n;
     Integer min = 0;
     Integer max = (2 * n) - 1;
 
     std::random_device rd; // Produce semilla para el generador Mersenne Twister.
     std::mt19937 engine(rd()); // Generador de números aleatorios "Mersenne Twister 19937"
     std::uniform_int_distribution<Integer> distribution(min, max); // Rango distribución uniforme: [0,2n-1].
-    
-    testSequientialRedBlackTree(engine, distribution, n);
+
+    testRandomHashT(engine, distribution, *(np));
 
     return 0;
 }
@@ -115,4 +120,45 @@ void testSequientialRedBlackTree(std::mt19937 &engine, std::uniform_int_distribu
 
     std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
     std::cout << "Número de búsquedas realizadas: Árbol Rojinegro Secuencial " << count << "\n\n";
+}
+
+void testRandomHashT(std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n) {
+
+    // Tabla de dispersión elementos aleatorios.
+
+    hasht<Integer> hashTable(n);
+
+    for (Integer i = 0; i < n; ++i)
+        hashTable.insert(distribution(engine));
+
+    cout << "Factor de carga: " << hashTable.loadFactor() << "\n\n";
+
+    hashTable.printTable();
+
+    std::cout << "----> Tabla de Dispersión Aleatoria <----\n\n";
+    Integer count = 0;
+    Integer found = 0;
+    Integer notfound = 0;
+
+    std::chrono::seconds elapsed(0);
+    std::chrono::system_clock::time_point finish;
+    std::chrono::system_clock::time_point start = std::chrono::system_clock::now();
+
+    while (elapsed.count() < 10) {
+
+        if (hashTable.search(distribution(engine)))
+            ++found;
+        else
+            ++ notfound;
+
+        ++count;
+        finish = std::chrono::system_clock::now();
+        elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
+    }
+
+    std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
+    std::cout << "Número de búsquedas realizadas: Tabla de dispersión: " << count << "\n\n";
+    std::cout << "Número de búsquedas exitosas: " << found << "\n\n";
+    std::cout << "Número de búsquedas fallidas: " << notfound << "\n\n";
+
 }

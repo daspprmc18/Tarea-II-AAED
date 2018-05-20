@@ -4,15 +4,39 @@
 #include <list>
 #include <vector>
 #include <algorithm>
+#include <cstdlib>
 
 using std::vector;
 using std::list;
 using std::fill;
 using std::copy;
+using std::cout;
 
 template <typename T>
 
 class hasht {
+private:
+    int numEntradas;
+    // Número de entradas en la tabla
+
+    vector< list<T> > tabla;
+    // La tabla es un vector de listas de STL
+
+private:
+
+    double loadF () {
+
+        double n = 0.0L;
+
+        for ( int i = 0; i < numEntradas; ++i ) // Calcula n.
+            n += tabla.at( i ).size( );
+
+        // Calcula factor de carga: m/n .
+
+        double loadF = ( double ) numEntradas / n;
+        return loadF;
+    };
+
 public:
 
     hasht (int nEntradas) : numEntradas (nEntradas) {
@@ -54,15 +78,14 @@ public:
 
     T* search (const T& item) {
 
-        typename list<T>::iterator it;
+        int pos                       = item % numEntradas;
+        T * result                    = nullptr;
+        typename list<T>::iterator it = find( tabla[pos].begin( ), tabla[pos].end( ), item );
 
-        int pos = item % numEntradas; // Función de dispersión.
-        it      = find( tabla[pos].begin( ), tabla[pos].end( ), item );
+        if ( it != tabla[pos].end( ) ) // Asume que el operador != está sobrecargado para el tipo de datos T.
+            result = &( *it );
 
-        if ( it != tabla[pos].end )
-            return &( *it );
-        else
-            return nullptr;
+        return result;
     };
     // Retorna un puntero a la llave o NULL si no se encuentra
 
@@ -72,10 +95,34 @@ public:
     };
     // Inserta el elemento en la tabla
 
-private:
-    int numEntradas;
-    // Nmero de entradas en la tabla
-    vector< list<T> > tabla;
-    // La tabla es un vector de listas de STL
+    double loadFactor () {
+        return loadF( );
+    };
+
+    void printTable () {
+
+        typename list<T>::iterator it;
+        typename list<T>::iterator begin;
+        typename list<T>::iterator end;
+
+        cout << "Tabla de dispersión: \n\n";
+
+        for ( int i = 0; i < numEntradas; ++i ) {
+
+            cout << i << ": " << " ";
+
+            begin = tabla[i].begin( );
+            it = begin;
+            end = tabla[i].end( );
+
+            while ( it != end ) {
+
+                cout << *it << "  ";
+                ++it;
+            }
+            cout << "\n\n";
+        }
+    }
+
 } ;
 #endif
