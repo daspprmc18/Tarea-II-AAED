@@ -145,16 +145,18 @@ private:
                     z->p->p->color = RED;         // Caso #1
                     z              = z->p->p;     // Caso #1
 
-                } else if ( z == z->p->right ) { // Z es hijo derecho de su padre. (Tío negro)
-                    // Intercambio paternidad entre Z y su padre.
-                    z = z->p;                     // Caso #2
-                    leftRotate( z );              // Caso #2
+                } else {
+
+                    if ( z == z->p->right ) { // Z es hijo derecho de su padre. (Tío negro).
+                        // Intercambio paternidad entre Z y su padre.
+                        z = z->p;                     // Caso #2
+                        leftRotate( z );              // Caso #2
+                    } // Caso #2 ----> Caso #3
 
                     // Intercambio de paternidad y de color generacional entre el padre de Z y su abuelo.
                     z->p->color    = BLACK;       // Caso #3
                     z->p->p->color = RED;         // Caso #3
                     rightRotate( z->p->p );       // Caso #3
-
                 }
 
             } else { // El padre de Z es hijo derecho del abuelo de Z.
@@ -168,10 +170,13 @@ private:
                     z->p->p->color = RED;         // Caso #1
                     z              = z->p->p;     // Caso #1
 
-                } else if ( z == z->p->left ) { // Z es hijo izquierdo de su padre. (Tío negro)
-                    // Intercambio paternidad entre Z y su padre.
-                    z = z->p;                     // Caso #2
-                    rightRotate( z );             // Caso #2
+                } else {
+
+                    if ( z == z->p->left ) { // Z es hijo izquierdo de su padre. (Tío negro)
+                        // Intercambio paternidad entre Z y su padre.
+                        z = z->p;                     // Caso #2
+                        rightRotate( z );             // Caso #2                
+                    }// Caso #2 ----> Caso #3
 
                     // Intercambio de paternidad y de color generacional entre el padre de Z y su abuelo.
                     z->p->color    = BLACK;       // Caso #3
