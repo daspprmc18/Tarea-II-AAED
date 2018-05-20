@@ -8,40 +8,52 @@
 using std::vector;
 using std::list;
 using std::fill;
+using std::copy;
 
 template <typename T>
 
 class hasht {
 public:
 
-    hasht(int nEntradas) : numEntradas(nEntradas) {
+    hasht (int nEntradas) : numEntradas (nEntradas) {
 
-        tabla.resize(nEntradas);        // Reestructura el tamaño del vector.
-        for (int i = 0; i < numEntradas; ++i)
-            tabla[i].resize(numEntradas); // Reestructura el tamaño de la lista.
+        tabla.resize( nEntradas );
+        for ( int i = 0; i < numEntradas; ++i )
+            tabla[i].clear( );
     };
     // Constructor que especifica el numero de cubetas (entradas) 
     // en la tabla
 
-    hasht(const hasht<T>& obj) {
+    hasht (const hasht<T>& obj) {
 
         numEntradas = obj.numEntradas;
-        typename list<T>::iterator begin;
-        typename list<T>::iterator end;
-        
-        
+        typename list<T>::iterator listBeginObj;
+        typename list<T>::iterator listEndObj;
+        typename list<T>::iterator listBegin;
+
+        for ( int i = 0; i < numEntradas; ++i ) {
+
+            if ( !obj.tabla[i].empty( ) ) {
+
+                listBeginObj  = obj.tabla[i].begin( );
+                listEndObj    = obj.tabla[i].end( );
+                listBegin     = tabla[i].begin( );
+                copy( listBeginObj, listEndObj, listBegin );
+            }
+        }
+
     };
     // Constructor copia
 
-    ~hasht() {
+    ~hasht () {
     };
     // Destructor (borra la tabla)
 
-    T* search(const T& item) {
+    T* search (const T& item) {
     };
     // Retorna un puntero a la llave o NULL si no se encuentra
 
-    void insert(const T& item) {
+    void insert (const T& item) {
     };
     // Inserta el elemento en la tabla
 
