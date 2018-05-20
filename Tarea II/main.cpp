@@ -24,7 +24,7 @@ tree<Integer> * buildSequentialTree(const Integer& n);
 
 int main(int argc, char** argv) {
 
-    Integer n = 10;
+    Integer n = 1000000;
     Integer * np = &n;
     Integer min = 0;
     Integer max = (2 * n) - 1;
