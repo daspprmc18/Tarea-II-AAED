@@ -8,6 +8,7 @@
 #include "bstree.h"
 #include "llist.h"
 #include "hasht.h"
+#include "rbtree.h"
 
 typedef long int Integer;
 
@@ -144,8 +145,36 @@ int main(int argc, char** argv) {
         }
     }*/
 
-    hasht<Integer> hashTable1(10);
-    hasht<Integer> hashTable2(hashTable1);
+    /*hasht<Integer> hashTable1(10);
+    hasht<Integer> hashTable2(hashTable1);*/
+
+    rbtree<Integer> redBlackTree;
+
+    rbnode<Integer> * node1 = new rbnode<Integer>(7);
+    rbnode<Integer> * node2 = new rbnode<Integer>(3);
+    rbnode<Integer> * node3 = new rbnode<Integer>(18);
+    rbnode<Integer> * node4 = new rbnode<Integer>(10);
+    rbnode<Integer> * node5 = new rbnode<Integer>(22);
+    rbnode<Integer> * node6 = new rbnode<Integer>(26);
+    rbnode<Integer> * node7 = new rbnode<Integer>(8);
+    rbnode<Integer> * node8 = new rbnode<Integer>(11);
+
+    rbnode<Integer> * node9 = new rbnode<Integer>(15);
+
+    redBlackTree.treeInsert(node1);
+    redBlackTree.treeInsert(node2);
+    redBlackTree.treeInsert(node3);
+    redBlackTree.treeInsert(node4);
+    redBlackTree.treeInsert(node5);
+    redBlackTree.treeInsert(node6);
+    redBlackTree.treeInsert(node7);
+    redBlackTree.treeInsert(node8);
+    redBlackTree.treeInsert(node9);
+
+    /*stack<Integer> redBlackStack;
+    redBlackTree.inorderTreeWalk(redBlackTree.getRoot(), redBlackStack);
+    printStack(redBlackStack);*/
+
     return 0;
 }
 

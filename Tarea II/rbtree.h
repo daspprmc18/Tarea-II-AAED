@@ -44,9 +44,11 @@ public:
 
     ~rbnode () {
 
-        delete left;
-        delete right;
-    }
+        key   = 0;
+        p     = nullptr;
+        left  = nullptr;
+        right = nullptr;
+    };
 } ;
 
 // Arbol:
@@ -78,19 +80,19 @@ private:
         x->right      = y->left;       // Convirte el subárbol izquierdo del nodo Y en el subárbol derecho del nodo X.
 
         if ( y->left != nil )
-            y->left.p = x;             // Enlaza el padre del hijo izquierdo de Y con X.
+            y->left->p = x;             // Enlaza el padre del hijo izquierdo de Y con X.
 
-        y->p = x.p;                    // Enlaza el padre de X con Y.
+        y->p = x->p;                    // Enlaza el padre de X con Y.
 
-        if ( x.p == nil )
+        if ( x->p == nil )
             root = y;
         else if ( x == x->p->left )
             x->p->left  = y;
         else
             x->p->right = y;
 
-        y->left = x;                  // Posiciona a X como hijo izquierdo de Y.
-        x.p     = y;
+        y->left  = x;                  // Posiciona a X como hijo izquierdo de Y.
+        x->p     = y;
 
     } // AL finalizar se produjo un cambio de paternidad entre X y Y.
 
@@ -117,15 +119,15 @@ private:
 
         y->p = x->p;                    // Enlaza el padre de X con Y.
 
-        if ( x.p == nil )
+        if ( x->p == nil )
             root = y;
         else if ( x == x->p->right )
             x->p->right = y;
         else
             x->p->left  = y;
 
-        y->right = x;                  // Posiciona a X como hijo derecho de Y.
-        x.p      = y;
+        y->right  = x;                  // Posiciona a X como hijo derecho de Y.
+        x->p      = y;
 
     } // AL finalizar se produjo un cambio de paternidad entre X y Y.
 
@@ -220,9 +222,23 @@ private:
         }
     };
 
+    void eraseTree (rbnode<T> * r) {
+
+        if ( r->left != nil )
+            eraseTree( r->left );
+        if ( r->right != nil )
+            eraseTree( r->right );
+        delete r;
+    }
+
 public:
 
-    rbtree () {
+    rbtree () : nil (new rbnode<T>( )) {
+
+        nil->color = BLACK;
+        nil->left  = nil;
+        nil->right = nil;
+        root       = nil;
     };
     // Constructor (crea un arbol vacio)
 
@@ -232,7 +248,11 @@ public:
     // Constructor copia
 
     ~rbtree () {
-        delete root;
+
+        if ( root != nil )
+            eraseTree( root );
+
+        delete nil;
     };
     // Destructor (borra el arbol)
 
