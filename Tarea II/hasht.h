@@ -53,11 +53,21 @@ public:
     // Destructor (borra la tabla)
 
     T* search (const T& item) {
+
+        typename list<T>::iterator it;
+
+        int pos = item % numEntradas; // Función de dispersión.
+        it      = find( tabla[pos].begin( ), tabla[pos].end( ), item );
+
+        if ( it != tabla[pos].end )
+            return &( *it );
+        else
+            return nullptr;
     };
     // Retorna un puntero a la llave o NULL si no se encuentra
 
     void insert (const T& item) { // h(k) = k mód m
-        int pos = item % numEntradas;
+        int pos = item % numEntradas; // Función de dispersión.
         tabla[pos].push_front( item );
     };
     // Inserta el elemento en la tabla
