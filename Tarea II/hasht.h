@@ -56,7 +56,9 @@ public:
     };
     // Retorna un puntero a la llave o NULL si no se encuentra
 
-    void insert (const T& item) {
+    void insert (const T& item) { // h(k) = k mód m
+        int pos = item % numEntradas;
+        tabla[pos].push_front( item );
     };
     // Inserta el elemento en la tabla
 
