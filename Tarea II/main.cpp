@@ -14,11 +14,12 @@ typedef long int Integer;
 
 void printList(const llist<Integer> &list);
 void printStack(stack<Integer> &stk);
+void testRandomRedBlackTree(std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n);
+void testSequientialRedBlackTree(std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n);
 tree<Integer> * buildSequentialTree(const Integer& n);
 
 int main(int argc, char** argv) {
 
-    // int option = 1;
     Integer n = 1000000;
     Integer min = 0;
     Integer max = (2 * n) - 1;
@@ -26,154 +27,8 @@ int main(int argc, char** argv) {
     std::random_device rd; // Produce semilla para el generador Mersenne Twister.
     std::mt19937 engine(rd()); // Generador de números aleatorios "Mersenne Twister 19937"
     std::uniform_int_distribution<Integer> distribution(min, max); // Rango distribución uniforme: [0,2n-1].
-
-    // Código de prueba para Lista enlazada.
-    /*if (!option) {
-
-        { // Lista Enlazada: Elementos aleatorios.
-
-            llist<Integer> randomList;
-            llnode<Integer> * randomNode = nullptr;
-
-            for (Integer i = 0; i < n; ++i) {
-
-                randomNode = new llnode<Integer>(distribution(engine), nullptr, nullptr);
-                //std::cout << "Nodo: " << i << "----> K: " << randomNode->key << "\n\n";
-                randomList.listInsert(randomNode);
-                randomNode = nullptr;
-            }
-
-            std::cout << "----> Lista Enlazada Aleatoria <----\n\n";
-            Integer count = 0;
-            std::chrono::seconds elapsed(0); // Tiempo transcurrido.
-            std::chrono::system_clock::time_point finish; // Tiempo final.
-            std::chrono::system_clock::time_point start = std::chrono::system_clock::now(); // Tiempo inicial.
-
-            while (elapsed.count() < 10) {
-
-                randomList.listSearch(distribution(engine));
-                ++count;
-                finish = std::chrono::system_clock::now();
-                elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
-            }
-
-            std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
-            std::cout << "Número de búsquedas realizadas: Lista aleatoria: " << count << "\n\n";
-        }
-
-        { // Lista Enlazada: Elementos secuenciales.
-
-            llist<Integer> sequentialList;
-            llnode<Integer> * sequentialNode = nullptr;
-
-            for (Integer i = 0; i < n; ++i) {
-
-                sequentialNode = new llnode<Integer>(i, nullptr, nullptr);
-                sequentialList.listInsert(sequentialNode);
-                sequentialNode = nullptr;
-            }
-
-            std::cout << "----> Lista Enlazada Secuencial <---- \n\n";
-            Integer count = 0;
-            std::chrono::seconds elapsed(0);
-            std::chrono::system_clock::time_point finish;
-            std::chrono::system_clock::time_point start = std::chrono::system_clock::now();
-
-            while (elapsed.count() < 10) {
-
-                sequentialList.listSearch(distribution(engine));
-                ++count;
-                finish = std::chrono::system_clock::now();
-                elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
-            }
-
-            std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
-            std::cout << "Número de búsquedas realizadas: Lista secuencial: " << count << "\n\n";
-        }
-    } else { // Código de prueba para Árbol binario.
-
-        { // Árbol Binario Búsqueda: Elementos aleatorios.
-
-            tree<Integer> randomTree;
-            node<Integer> * randomNode = nullptr;
-
-            for (Integer i = 0; i < n; ++i) {
-                randomNode = new node<Integer>(distribution(engine), nullptr, nullptr, nullptr);
-                randomTree.treeInsert(randomNode);
-                randomNode = nullptr;
-            }
-
-            std::cout << "----> Arból Binario Aleatorio <----\n\n";
-            Integer count = 0;
-            std::chrono::seconds elapsed(0);
-            std::chrono::system_clock::time_point finish;
-            std::chrono::system_clock::time_point start = std::chrono::system_clock::now();
-
-            while (elapsed.count() < 10) {
-
-                randomTree.iterativeTreeSearch(distribution(engine));
-                ++count;
-                finish = std::chrono::system_clock::now();
-                elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
-            }
-
-            std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
-            std::cout << "Número de búsquedas realizadas: Árbol aleatorio: " << count << "\n\n";
-        }
-
-        { // Árbol Binario Búsqueda: Elementos secuenciales.
-
-            tree<Integer> sequentialTree;
-            sequentialTree.buildTreeSequential(n);
-
-            std::cout << "----> Arból Binario Secuencial <----\n\n";
-            Integer count = 0;
-            std::chrono::seconds elapsed(0); // Tiempo transcurrido.
-            std::chrono::system_clock::time_point finish; // Tiempo final.
-            std::chrono::system_clock::time_point start = std::chrono::system_clock::now(); // Tiempo inicial.
-
-            while (elapsed.count() < 10) {
-
-                sequentialTree.iterativeTreeSearch(distribution(engine));
-                ++count;
-                finish = std::chrono::system_clock::now();
-                elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
-            }
-
-            std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
-            std::cout << "Número de búsquedas realizadas: Árbol secuencial " << count << "\n\n";
-        }
-    }*/
-
-    /*hasht<Integer> hashTable1(10);
-    hasht<Integer> hashTable2(hashTable1);*/
-
-    rbtree<Integer> redBlackTree;
-
-    rbnode<Integer> * node1 = new rbnode<Integer>(7);
-    rbnode<Integer> * node2 = new rbnode<Integer>(3);
-    rbnode<Integer> * node3 = new rbnode<Integer>(18);
-    rbnode<Integer> * node4 = new rbnode<Integer>(10);
-    rbnode<Integer> * node5 = new rbnode<Integer>(22);
-    rbnode<Integer> * node6 = new rbnode<Integer>(26);
-    rbnode<Integer> * node7 = new rbnode<Integer>(8);
-    rbnode<Integer> * node8 = new rbnode<Integer>(11);
-
-    rbnode<Integer> * node9 = new rbnode<Integer>(15);
-
-    redBlackTree.treeInsert(node1);
-    redBlackTree.treeInsert(node2);
-    redBlackTree.treeInsert(node3);
-    redBlackTree.treeInsert(node4);
-    redBlackTree.treeInsert(node5);
-    redBlackTree.treeInsert(node6);
-    redBlackTree.treeInsert(node7);
-    redBlackTree.treeInsert(node8);
-    redBlackTree.treeInsert(node9);
-
-    /*stack<Integer> redBlackStack;
-    redBlackTree.inorderTreeWalk(redBlackTree.getRoot(), redBlackStack);
-    printStack(redBlackStack);*/
+    
+    testSequientialRedBlackTree(engine, distribution, n);
 
     return 0;
 }
@@ -202,4 +57,62 @@ void printStack(stack<Integer> &stk) {
         stk.pop();
     }
     std::cout << " _ _ _ _ _  \n\n";
+}
+
+void testRandomRedBlackTree(std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer & n) {
+
+    // Árbol Rojinegro: Elementos aleatorios.
+
+    rbtree<Integer> randomRedBlackTree;
+
+    rbnode<Integer> * redBlackNode = nullptr;
+
+    for (Integer i = 0; i < n; ++i) {
+
+        redBlackNode = new rbnode<Integer>(distribution(engine));
+        randomRedBlackTree.treeInsert(redBlackNode);
+    }
+
+    std::cout << "----> Arból Rojinegro Aleatorio <----\n\n";
+    Integer count = 0;
+    std::chrono::seconds elapsed(0);
+    std::chrono::system_clock::time_point finish;
+    std::chrono::system_clock::time_point start = std::chrono::system_clock::now();
+
+    while (elapsed.count() < 10) {
+
+        randomRedBlackTree.iterativeTreeSearch(distribution(engine));
+        ++count;
+        finish = std::chrono::system_clock::now();
+        elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
+    }
+
+    std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
+    std::cout << "Número de búsquedas realizadas: Árbol Rojinegro Aleatorio: " << count << "\n\n";
+
+}
+
+void testSequientialRedBlackTree(std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer & n) {
+
+    // Árbol Rojinegro : Elementos secuenciales.
+
+    rbtree<Integer> sequentialRedBlackTree;
+    sequentialRedBlackTree.buildSequentialTree(n);
+
+    std::cout << "----> Arból Rojinegro Secuencial <----\n\n";
+    Integer count = 0;
+    std::chrono::seconds elapsed(0); // Tiempo transcurrido.
+    std::chrono::system_clock::time_point finish; // Tiempo final.
+    std::chrono::system_clock::time_point start = std::chrono::system_clock::now(); // Tiempo inicial.
+
+    while (elapsed.count() < 10) {
+
+        sequentialRedBlackTree.iterativeTreeSearch(distribution(engine));
+        ++count;
+        finish = std::chrono::system_clock::now();
+        elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
+    }
+
+    std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
+    std::cout << "Número de búsquedas realizadas: Árbol Rojinegro Secuencial " << count << "\n\n";
 }

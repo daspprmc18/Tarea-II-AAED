@@ -7,6 +7,8 @@
 
 #include "bstree.h"
 
+typedef long Integer;
+
 using std::stack;
 
 enum colors {
@@ -284,7 +286,7 @@ public:
 
     rbnode<T>* iterativeTreeSearch (const T& k) const {
 
-        node<T> * current = root;
+        rbnode<T> * current = root;
 
         while ( current != nil && current->key != k ) {   // Mientras C sea distinto de NIL ( Nodo interno ) y el elemento en el nodo apuntado por C no es K.
 
@@ -389,6 +391,22 @@ public:
         return this->nil;
     };
     // Devuelve T.nil. (Para efectos de revision de la tarea).
+
+    void buildSequentialTree (Integer n) {
+
+        rbnode<T> * current = nullptr;
+        rbnode<T> * temp    = nullptr;
+        root                = new rbnode<T>( 0 );
+        current             = root;
+
+        for ( Integer i = 1; i < n; ++i ) {
+
+            temp           = new rbnode<T>( i, current);
+            current->right = temp;
+            current        = current->right;
+        }
+        
+    };
 
 } ;
 
