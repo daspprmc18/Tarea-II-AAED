@@ -16,10 +16,7 @@ class hasht {
 public:
 
     hasht (int nEntradas) : numEntradas (nEntradas) {
-
-        tabla.resize( nEntradas );
-        for ( int i = 0; i < numEntradas; ++i )
-            tabla[i].clear( );
+        tabla.resize( numEntradas );
     };
     // Constructor que especifica el numero de cubetas (entradas) 
     // en la tabla
@@ -27,6 +24,7 @@ public:
     hasht (const hasht<T>& obj) {
 
         numEntradas = obj.numEntradas;
+
         typename list<T>::iterator listBeginObj;
         typename list<T>::iterator listEndObj;
         typename list<T>::iterator listBegin;
@@ -46,6 +44,11 @@ public:
     // Constructor copia
 
     ~hasht () {
+
+        for ( int i = 0; i < numEntradas; ++i )
+            tabla[i].clear( );
+
+        tabla.clear( );
     };
     // Destructor (borra la tabla)
 
