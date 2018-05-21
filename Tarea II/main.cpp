@@ -33,7 +33,6 @@ int main(int argc, char** argv) {
     Integer min  = 0;
     Integer max  = (2 * n) - 1;
 
-    std::random_device rd; // Produce semilla para el generador Mersenne Twister.
     std::mt19937 engine(std::chrono::system_clock::now().time_since_epoch().count()); // Generador de números aleatorios "Mersenne Twister 19937"
     std::uniform_int_distribution<Integer> distribution(min, max); // Rango distribución uniforme: [0,2n-1].
 
@@ -108,8 +107,8 @@ void testSequientialRedBlackTree(std::mt19937 &engine, std::uniform_int_distribu
 
     // Árbol Rojinegro : Elementos secuenciales.
 
-    rbtree<Integer> redBlackTree;
-    redBlackTree.buildSequentialTree(n);
+    rbtree<Integer> tree;
+    tree.buildSequentialTree(n);
 
     std::cout << "----> Arból Rojinegro Secuencial <----\n\n";
     Integer count = 0;
@@ -120,13 +119,15 @@ void testSequientialRedBlackTree(std::mt19937 &engine, std::uniform_int_distribu
 
     while (elapsed.count() < 10) {
 
-        redBlackTree.iterativeTreeSearch( distribution(engine));
+        tree.iterativeTreeSearch( distribution(engine));
         ++count;
         finish  = std::chrono::system_clock::now();
         elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
     }
     std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
     std::cout << "Número de búsquedas realizadas: Árbol Rojinegro Secuencial " << count << "\n\n";
+
+    tree.deleteSequentialTree();
 }
 
 void testRandomHashT(std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n) {
