@@ -34,7 +34,7 @@ int main(int argc, char** argv) {
     Integer max  = (2 * n) - 1;
 
     std::random_device rd; // Produce semilla para el generador Mersenne Twister.
-    std::mt19937 engine(rd()); // Generador de números aleatorios "Mersenne Twister 19937"
+    std::mt19937 engine(std::chrono::system_clock::now().time_since_epoch().count()); // Generador de números aleatorios "Mersenne Twister 19937"
     std::uniform_int_distribution<Integer> distribution(min, max); // Rango distribución uniforme: [0,2n-1].
 
     // testRandomHashT(engine, distribution, *(np));
