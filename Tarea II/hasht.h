@@ -12,6 +12,8 @@ using std::fill;
 using std::copy;
 using std::cout;
 
+typedef long int Integer;
+
 template <typename T>
 
 class hasht {
@@ -55,7 +57,6 @@ public:
                 tabla[i].insert( tabla[i].begin( ), obj.tabla[i].begin( ), obj.tabla[i].end( ) );
             }
         }
-
     };
     // Constructor copia
 
@@ -115,6 +116,25 @@ public:
             cout << "\n\n";
         }
     }
+
+    // Compara la lista en la posición i de el vector de *this con la lista en la posición i del vector de orig.
+    // Si hay un solo valor distinto en alguna de las listas retorna falso.
+
+    bool operator== ( hasht<T>& orig ) {
+
+        for ( Integer i = 0; i < numEntradas; ++i ) {
+
+            typename list<T>::iterator ito = orig.tabla[i].begin( ); // Iterador lista i de orig.
+
+            for ( typename list<T>::iterator it = tabla[i].begin( ); it != tabla[i].end( ); ++it ) { // it: iterador de lista i de *this.
+
+                if ( *it != *ito  )
+                    return false;
+
+                ++ito;
+            }
+        }
+    };
 
 } ;
 #endif

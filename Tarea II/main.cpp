@@ -28,7 +28,7 @@ tree<Integer> * buildSequentialTree(const Integer& n);
 
 int main(int argc, char** argv) {
 
-    Integer n    = 100;
+    Integer n    = 1000000;
     Integer * np = &n;
     Integer min  = 0;
     Integer max  = (2 * n) - 1;
@@ -46,11 +46,11 @@ int main(int argc, char** argv) {
 
     for (Integer i = 0; i < n; ++i)
         hashTable.insert( distribution(engine) );
-    hashTable.printTable();
-
-    cout << "Prueba constructor de copia Tabla de dispersión....\n\n";
     hasht<Integer> hashTableCopy(hashTable);
-    hashTableCopy.printTable();
+
+    if ( hashTable == hashTableCopy )
+        cout << "Las tablas de dispersión son iguales.\n";
+
 
     return 0;
 }
