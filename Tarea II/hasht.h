@@ -24,20 +24,20 @@ private:
     vector< list<T> > tabla;
     // La tabla es un vector de listas de STL
 
-private:
+    /*private:
 
-    double loadF () {
+        double loadF () {
 
-        double n = 0.0L;
+            double n = 0.0L;
 
-        for ( int i = 0; i < numEntradas; ++i ) // Calcula n.
-            n += tabla.at( i ).size( );
+            for ( int i = 0; i < numEntradas; ++i ) // Calcula n.
+                n += tabla.at( i ).size( );
 
-        // Calcula factor de carga: m/n .
+            // Calcula factor de carga: m/n .
 
-        double loadF = ( double ) numEntradas / n;
-        return loadF;
-    };
+            double loadF = ( double ) numEntradas / n;
+            return loadF;
+        };*/
 
 public:
 
@@ -88,11 +88,11 @@ public:
     };
     // Inserta el elemento en la tabla
 
-    double loadFactor () {
+    /*double loadFactor () {
         return loadF( );
-    };
+    };*/
 
-    void printTable () {
+    /*void printTable () {
 
         typename list<T>::iterator it;
         typename list<T>::iterator begin;
@@ -115,8 +115,9 @@ public:
             }
             cout << "\n\n";
         }
-    }
+    }*/
 
+    /*
     // Compara la lista en la posición i de el vector de *this con la lista en la posición i del vector de orig.
     // Si hay un solo valor distinto en alguna de las listas retorna falso.
 
@@ -134,7 +135,7 @@ public:
                 ++ito;
             }
         }
-    };
+    };*/
 
 } ;
 #endif
