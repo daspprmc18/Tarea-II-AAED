@@ -39,7 +39,8 @@ int main(int argc, char** argv) {
 
     // testRandomHashT(engine, distribution, *(np));
 
-    testSequientialRedBlackTree(engine, distribution, n);
+    //testRandomRedBlackTree(engine, distribution, n);
+    testSequientialRedBlackTree(engine, distribution, n); // Si lo corro solo hace más búsquedas que cuando corrí previamente la búsqueda de aleatorios...
 
     return 0;
 }
@@ -112,8 +113,6 @@ void testSequientialRedBlackTree(std::mt19937 &engine, std::uniform_int_distribu
 
     std::cout << "----> Arból Rojinegro Secuencial <----\n\n";
     Integer count = 0;
-    Integer found = 0;
-    Integer notfound = 0;
 
     std::chrono::seconds elapsed(0); // Tiempo transcurrido.
     std::chrono::system_clock::time_point finish; // Tiempo final.
@@ -121,21 +120,13 @@ void testSequientialRedBlackTree(std::mt19937 &engine, std::uniform_int_distribu
 
     while (elapsed.count() < 10) {
 
-        if ( redBlackTree.iterativeTreeSearch(distribution(engine)) )
-            ++found;
-        else
-            ++ notfound;
-
+        redBlackTree.iterativeTreeSearch( distribution(engine));
         ++count;
-        finish = std::chrono::system_clock::now();
+        finish  = std::chrono::system_clock::now();
         elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
     }
-
     std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
     std::cout << "Número de búsquedas realizadas: Árbol Rojinegro Secuencial " << count << "\n\n";
-    std::cout << "Número de búsquedas exitosas: " << found << "\n\n";
-    std::cout << "Número de búsquedas fallidas: " << notfound << "\n\n";
-
 }
 
 void testRandomHashT(std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n) {
