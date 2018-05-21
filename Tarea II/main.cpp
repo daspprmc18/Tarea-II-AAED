@@ -15,17 +15,17 @@ int main(int argc, char** argv) {
 
 
 
-    //testRandomList(engine, distribution, n);
-    //testSequentialList(engine, distribution, n);
+    testRandomList(engine, distribution, n);
+    testSequentialList(engine, distribution, n);
 
     testSequientialBinaySearchTree(engine, distribution, n);
-    //testRandomBinarySearchTree(engine, distribution, n);
+    testRandomBinarySearchTree(engine, distribution, n);
 
-    //testSequientialRedBlackTree(engine, distribution, n); // Si lo corro solo hace más búsquedas que cuando corrí previamente la búsqueda de aleatorios...
-    //testRandomRedBlackTree(engine, distribution, n);
+    testSequientialRedBlackTree(engine, distribution, n); // Si lo corro solo hace más búsquedas que cuando corrí previamente la búsqueda de aleatorios...
+    testRandomRedBlackTree(engine, distribution, n);
 
-    //testRandomHashT(engine, distribution, n);
-    //testSequentialHashT(engine, distribution, n);
+    testRandomHashT(engine, distribution, n);
+    testSequentialHashT(engine, distribution, n);
 
     return 0;
 }
