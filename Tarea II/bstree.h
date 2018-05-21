@@ -32,11 +32,12 @@ public:
 
     ~node () {
 
-        delete left;
-        delete right;
-        //std::cout << "Eliminando Nodo " << key << "\n\n";
+        p     = nullptr;
+        left  =  nullptr;
+        right = nullptr;
+        key   = 0;
     }
-};
+} ;
 
 // Arbol:
 
@@ -106,6 +107,30 @@ private:
         }
     };
 
+    void eraseTree (node<T> * r) {
+
+        if ( r->left != nullptr )
+            eraseTree( r->left );
+        if ( r->right != nullptr )
+            eraseTree( r->right );
+        delete r;
+    }
+
+    void treeDeleteSequential () { // Si el árbol secuencial no se elimina de esta forma, se produce un desbordamiento de pila y el programa colapsa.
+
+        node<T> * previous = root;             // p: nodo que se va a elminar
+        node<T> * current  = previous->right;  // c: hijo derecho de p.
+
+        while ( current != nullptr ) {
+
+            delete previous;                    // Elimina   p en                        la iteración t.
+            previous = current;                 // Actualiza p a c para                  la iteración t+1.
+            current  = current->right;          // Actualiza c al hijo derecho de c para la iteración t+1.
+        }
+
+        root = nullptr; // Evita violación de segmento en destructor.
+    };
+
 public:
 
     void buildTreeSequential (const T& n) {
@@ -125,7 +150,8 @@ public:
     // Constructor copia
 
     ~tree () {
-        delete root;
+        if ( root )
+            eraseTree( root );
     };
     // Destructor (borra el arbol)
 
@@ -297,6 +323,10 @@ public:
     // Devuelve la direccion del nodo eliminado para que se pueda 
     // disponer de ella.
 
+    void deleteSequentialTree () {
+        treeDeleteSequential ( );
+    } // Elimina el árbol secuencial: Evita desbordamiento de pila.
+
     node<T> * getRoot () const {
         return this->root;
     };
@@ -305,5 +335,5 @@ public:
 private:
     node<T> *root; // root of the Tree
 
-};
+} ;
 #endif // BINARY_SEARCH_Tree

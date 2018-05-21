@@ -133,7 +133,7 @@ void testSequientialBinaySearchTree (std::mt19937 &engine, std::uniform_int_dist
 
     std::cout << "----> Arból Binario Secuencial <----\n\n";
     Integer count = 0;
-    
+
     std::chrono::seconds elapsed(0); // Tiempo transcurrido.
     std::chrono::system_clock::time_point finish; // Tiempo final.
     std::chrono::system_clock::time_point start = std::chrono::system_clock::now(); // Tiempo inicial.
@@ -148,6 +148,8 @@ void testSequientialBinaySearchTree (std::mt19937 &engine, std::uniform_int_dist
 
     std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
     std::cout << "Número de búsquedas realizadas: Árbol secuencial " << count << "\n\n";
+
+    sequentialTree.deleteSequentialTree();
 }
 
 // -------------------------------------------------------------> Árbol Rojinegro <-------------------------------------------------------------

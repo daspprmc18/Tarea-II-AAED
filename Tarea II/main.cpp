@@ -12,14 +12,20 @@ int main(int argc, char** argv) {
 
     std::mt19937 engine(std::chrono::system_clock::now().time_since_epoch().count()); // Generador de números aleatorios "Mersenne Twister 19937"
     std::uniform_int_distribution<Integer> distribution(min, max); // Rango distribución uniforme: [0,2n-1].
-    
-    
 
-    
-    testSequientialRedBlackTree(engine, distribution, n); // Si lo corro solo hace más búsquedas que cuando corrí previamente la búsqueda de aleatorios...
-    testRandomRedBlackTree(engine, distribution, n);
-    testRandomHashT(engine, distribution, n);
-    testSequentialHashT(engine, distribution, n);
+
+
+    //testRandomList(engine, distribution, n);
+    //testSequentialList(engine, distribution, n);
+
+    testSequientialBinaySearchTree(engine, distribution, n);
+    //testRandomBinarySearchTree(engine, distribution, n);
+
+    //testSequientialRedBlackTree(engine, distribution, n); // Si lo corro solo hace más búsquedas que cuando corrí previamente la búsqueda de aleatorios...
+    //testRandomRedBlackTree(engine, distribution, n);
+
+    //testRandomHashT(engine, distribution, n);
+    //testSequentialHashT(engine, distribution, n);
 
     return 0;
 }
