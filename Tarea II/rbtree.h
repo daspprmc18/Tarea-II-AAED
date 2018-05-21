@@ -1,20 +1,19 @@
 #ifndef RED_BLACK_rbtree
 #define RED_BLACK_rbtree
 
-#include <stdio.h>
 #include <stack>
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "bstree.h"
-
-typedef long Integer;
-
-using std::stack;
 
 enum colors {
     RED,  // 0
     BLACK // 1
 } ;
+
+typedef long Integer;
+using std::stack;
 
 // Nodos del arbol:
 
@@ -45,7 +44,6 @@ public:
     };
 
     ~rbnode () {
-
         key   = 0;
         p     = nullptr;
         left  = nullptr;
