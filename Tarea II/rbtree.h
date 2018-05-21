@@ -44,7 +44,7 @@ public:
     };
 
     ~rbnode () {
-        
+
         key   = 0;
         p     = nullptr;
         left  = nullptr;
@@ -214,14 +214,14 @@ private:
         return current;
     };
 
-    void copyTree (rbnode<T>* root) {
+    void copyTree (rbnode<T> * origRoot, const rbnode<T> * origNil) {
 
-        if ( root != nil ) {         // C es distinto de NIL.
+        if ( origRoot != origNil ) { // Comparación entre punteros de orig.
 
-            rbnode<T> * temp = new rbnode<T>( root->key, nullptr, nullptr, nullptr, RED );
+            rbnode<T> * temp = new rbnode<T>( origRoot->key ); // El color del nodo es rojo por defecto.
             treeInsert( temp );
-            copyTree( root->left );  // Copia subárbol izquierdo de C.
-            copyTree( root->right ); // Copia subárbol derecho de C.
+            copyTree( origRoot->left, origNil );  // Copia subárbol izquierdo de C. 
+            copyTree( origRoot->right, origNil ); // Copia subárbol derecho de C. 
         }
     };
 
@@ -285,10 +285,20 @@ public:
     };
     // Constructor (crea un arbol vacio)
 
-    rbtree (const rbtree<T>& obj) {
-        copyTree( obj.root );
+    /*rbtree (const rbtree<T>& obj) {
+        copyRB( obj.getRoot( ), obj.getNil( ) );
+    };*/
+
+    rbtree (const rbtree<T>& obj) : nil (new rbnode<T>( )) {
+
+        nil->color = BLACK;
+        nil->left  = nil;
+        nil->right = nil;
+        root       = nil;
+
+        copyTree( obj.root, obj.nil );
     };
-    // Constructor copia
+    // Constructor copia*/
 
     ~rbtree () {
 
