@@ -136,16 +136,12 @@ void testRandomHashT(std::mt19937 &engine, std::uniform_int_distribution<Integer
     hasht<Integer> hashTable(n);
 
     for (Integer i = 0; i < n; ++i)
-        hashTable.insert(distribution(engine));
+        hashTable.insert( distribution(engine) );
 
     cout << "Factor de carga: " << hashTable.loadFactor() << "\n\n";
 
-    hashTable.printTable();
-
     std::cout << "----> Tabla de Dispersión Aleatoria <----\n\n";
     Integer count = 0;
-    Integer found = 0;
-    Integer notfound = 0;
 
     std::chrono::seconds elapsed(0);
     std::chrono::system_clock::time_point finish;
@@ -153,19 +149,12 @@ void testRandomHashT(std::mt19937 &engine, std::uniform_int_distribution<Integer
 
     while (elapsed.count() < 10) {
 
-        if (hashTable.search(distribution(engine)))
-            ++found;
-        else
-            ++ notfound;
-
+        hashTable.search(distribution(engine));
         ++count;
-        finish = std::chrono::system_clock::now();
+        finish  = std::chrono::system_clock::now();
         elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
     }
 
     std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
     std::cout << "Número de búsquedas realizadas: Tabla de dispersión: " << count << "\n\n";
-    std::cout << "Número de búsquedas exitosas: " << found << "\n\n";
-    std::cout << "Número de búsquedas fallidas: " << notfound << "\n\n";
-
 }
