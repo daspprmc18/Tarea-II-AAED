@@ -28,7 +28,7 @@ tree<Integer> * buildSequentialTree(const Integer& n);
 
 int main(int argc, char** argv) {
 
-    Integer n    = 1000000;
+    Integer n    = 100;
     Integer * np = &n;
     Integer min  = 0;
     Integer max  = (2 * n) - 1;
@@ -36,9 +36,21 @@ int main(int argc, char** argv) {
     std::mt19937 engine(std::chrono::system_clock::now().time_since_epoch().count()); // Generador de números aleatorios "Mersenne Twister 19937"
     std::uniform_int_distribution<Integer> distribution(min, max); // Rango distribución uniforme: [0,2n-1].
 
-    testRandomHashT(engine, distribution, *(np));
-    testSequientialRedBlackTree(engine, distribution, n); // Si lo corro solo hace más búsquedas que cuando corrí previamente la búsqueda de aleatorios...
-    testRandomRedBlackTree(engine, distribution, n);
+    //    testRandomHashT(engine, distribution, *(np));
+    //    testSequientialRedBlackTree(engine, distribution, n); // Si lo corro solo hace más búsquedas que cuando corrí previamente la búsqueda de aleatorios...
+    //    testRandomRedBlackTree(engine, distribution, n);
+
+    // Prueba de constructor de copia tabla de dispersión
+
+    hasht<Integer> hashTable(*np);
+
+    for (Integer i = 0; i < n; ++i)
+        hashTable.insert( distribution(engine) );
+    hashTable.printTable();
+
+    cout << "Prueba constructor de copia Tabla de dispersión....\n\n";
+    hasht<Integer> hashTableCopy(hashTable);
+    hashTableCopy.printTable();
 
     return 0;
 }

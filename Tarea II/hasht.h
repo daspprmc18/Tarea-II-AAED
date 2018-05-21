@@ -48,19 +48,11 @@ public:
     hasht (const hasht<T>& obj) {
 
         numEntradas = obj.numEntradas;
-
-        typename list<T>::iterator listBeginObj;
-        typename list<T>::iterator listEndObj;
-        typename list<T>::iterator listBegin;
+        tabla.resize( numEntradas );
 
         for ( int i = 0; i < numEntradas; ++i ) {
-
             if ( !obj.tabla[i].empty( ) ) {
-
-                listBeginObj  = obj.tabla[i].begin( );
-                listEndObj    = obj.tabla[i].end( );
-                listBegin     = tabla[i].begin( );
-                copy( listBeginObj, listEndObj, listBegin );
+                tabla[i].insert( tabla[i].begin( ), obj.tabla[i].begin( ), obj.tabla[i].end( ) );
             }
         }
 
