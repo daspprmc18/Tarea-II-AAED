@@ -254,7 +254,22 @@ private:
         }
 
         current->right = nil; // Último nodo.
-    }
+    };
+
+    void deleteSequentialTree () {
+
+        rbnode<T> * previous = root;             // p: nodo que se va a elminar
+        rbnode<T> * current  = previous->right;  // c: hijo derecho de p.
+
+        while ( current != nil ) {
+
+            delete previous;                    // Elimina   p en                        la iteración t.
+            previous = current;                 // Actualiza p a c para                  la iteración t+1.
+            current  = current->right;          // Actualiza c al hijo derecho de c para la iteración t+1.
+        }
+
+        delete nil;
+    };
 
 public:
 
