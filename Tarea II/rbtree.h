@@ -44,6 +44,7 @@ public:
     };
 
     ~rbnode () {
+        
         key   = 0;
         p     = nullptr;
         left  = nullptr;
@@ -190,7 +191,7 @@ private:
         root->color = BLACK;
     }
 
-    node<T>* treeSearch (node<T>* c, const T& k) { // C: current node.
+    rbnode<T>* treeSearch (rbnode<T>* c, const T& k) { // C: current node.
 
         if ( c == nil )        // C es NIL o el elemento en el nodo apuntado por C es el que se busca.
             return nullptr;
@@ -203,9 +204,9 @@ private:
             return treeSearch( c->right, k ); // Buscar K en el subárbol derecho.
     };
 
-    node<T>* treeMinimum (node<T>* x) const {
+    rbnode<T>* treeMinimum (rbnode<T>* x) const {
 
-        node<T>* current = x;
+        rbnode<T>* current = x;
 
         while ( current->left != nil )        // Mientras el nodo apuntado por C tenga hijo izquierdo  ( Nodo interno ).
             current = current->left;          // Avanza C al hijo izquierdo de C.
@@ -213,11 +214,11 @@ private:
         return current;
     };
 
-    void copyTree (node<T>* root) {
+    void copyTree (rbnode<T>* root) {
 
         if ( root != nil ) {         // C es distinto de NIL.
 
-            node<T> * temp = new node<T>( root->key, nullptr, nullptr, nullptr, RED );
+            rbnode<T> * temp = new rbnode<T>( root->key, nullptr, nullptr, nullptr, RED );
             treeInsert( temp );
             copyTree( root->left );  // Copia subárbol izquierdo de C.
             copyTree( root->right ); // Copia subárbol derecho de C.
@@ -345,7 +346,7 @@ public:
         if ( root == nil ) // Árbol vacío.
             return nullptr;
 
-        node<T>* current = root;
+        rbnode<T>* current = root;
         while ( current->left != nil )  // Mientras el nodo apuntado por C tenga hijo izquierdo ( Nodo interno ).
             current = current->left;    // Avanza C al hijo izquierdo de C.
         return current;
@@ -358,7 +359,7 @@ public:
         if ( root == nil ) // Árbol vacío.
             return nullptr;
 
-        node<T> * current = root;
+        rbnode<T> * current = root;
         while ( current->right != nil )  // Mientras el nodo apuntado por C tenga hijo derecho ( Nodo interno ).
             current = current->right;    // Avanza C al hijo derecho de C.
 
@@ -369,7 +370,7 @@ public:
 
     rbnode<T>* treeSuccessor (const rbnode<T>* x) const {
 
-        node<T>* y = nil;
+        rbnode<T>* y = nil;
 
         if ( x->right != nil ) // Subárbol derecho de X no está vacío
             return treeMinimum( x->right ); // El sucesor de X es el mínimo del subárbol derecho de X. 
@@ -391,7 +392,7 @@ public:
     void treeInsert (rbnode<T>* z) {
 
         rbnode<T> * trailing = nil;
-        rbnode<T> * current = root;
+        rbnode<T> * current  = root;
 
         while ( current != nil ) {
 
@@ -419,7 +420,7 @@ public:
     };
     // Inserta el nodo z en la posicion que le corresponde en el arbol.
 
-    node<T>* treeDelete (node<T>* z) {
+    rbnode<T>* treeDelete (rbnode<T>* z) {
     };
     // Saca del arbol la llave contenida en el nodo apuntado por z.
     // Devuelve la direccion del nodo eliminado para que se pueda 
