@@ -192,9 +192,11 @@ private:
         root->color = BLACK;
     }
 
-    node<T>* treeSearch (node<T>* c, const T& k) {
+    node<T>* treeSearch (node<T>* c, const T& k) { // C: current node.
 
-        if ( c == nil || c->key == k )        // C es NIL o el elemento en el nodo apuntado por C es el que se busca.
+        if ( c == nil )        // C es NIL o el elemento en el nodo apuntado por C es el que se busca.
+            return nullptr;
+        else if ( c->key == k )
             return c;
 
         if ( k < c->key )                     // K es menor que el elemento en el nodo apuntado por C.
@@ -233,6 +235,29 @@ private:
         delete r;
     }
 
+    void buildTreeSequential (Integer n) {
+
+        rbnode<T> * current = nullptr;
+        rbnode<T> * temp    = nullptr;
+        root                = new rbnode<T>( 0, nil , nil , nullptr, BLACK );
+        temp                = new rbnode<T>( 1, root, nil , nullptr, RED );
+        root->right         = temp;
+        current             = temp;
+
+        for ( Integer i = 2; i < n; ++i ) {
+
+            if ( ( i % 2 ) == 0 )
+                temp       = new rbnode<T>( i, current, nil, nullptr, BLACK );
+            else
+                temp       = new rbnode<T>( i, current, nil, nullptr, RED );
+
+            current->right = temp;
+            current        = current->right;
+        }
+
+        current->right = nil; // Último nodo.
+    }
+
 public:
 
     rbtree () : nil (new rbnode<T>( )) {
@@ -264,7 +289,7 @@ public:
 
             inorderTreeWalk( x->left, pila ); // Recorre en orden: subárbol izquierdo.
             pila.push( x->key ); // Apila el elemento apuntado por X.
-            ( x->color == RED ) ? pila.push( RED ) : pila.push( BLACK );
+            ( x->color == RED ) ? pila.push( RED ) : pila.push( BLACK ); // Apila color de X.
             inorderTreeWalk( x->right, pila ); // Recorre en orden: subárbol derecho.
         }
     };
@@ -295,17 +320,19 @@ public:
             else
                 current = current->right;                 // Buscar K en el subárbol derecho.
         }
-        return current;
+
+        return (current == nil ) ?  nullptr : current;
     };
     // Igual que en el anterior pero usa un procedimiento iterativo.
 
     rbnode<T>* treeMinimum () const {
 
-        node<T>* current = root;
+        if ( root == nil ) // Árbol vacío.
+            return nullptr;
 
+        node<T>* current = root;
         while ( current->left != nil )  // Mientras el nodo apuntado por C tenga hijo izquierdo ( Nodo interno ).
             current = current->left;    // Avanza C al hijo izquierdo de C.
-
         return current;
     };
     // Devuelve el nodo con la llave menor.
@@ -313,8 +340,10 @@ public:
 
     rbnode<T>* treeMaximum () const {
 
-        node<T> * current = root;
+        if ( root == nil ) // Árbol vacío.
+            return nullptr;
 
+        node<T> * current = root;
         while ( current->right != nil )  // Mientras el nodo apuntado por C tenga hijo derecho ( Nodo interno ).
             current = current->right;    // Avanza C al hijo derecho de C.
 
@@ -339,7 +368,7 @@ public:
 
         } // Finaliza cuando encuentra el primer ancestro en dirección noreste. " Es decir X es hijo izquierdo de Y".
 
-        return y;
+        return (y == nil ) ? nullptr : y;
     };
     // Devuelve el nodo cuya llave es la siguiente mas grande que 
     // la del nodo x. Si no existe tal nodo devuelve NULL.
@@ -381,6 +410,11 @@ public:
     // Devuelve la direccion del nodo eliminado para que se pueda 
     // disponer de el.
 
+    void buildSequentialTree (Integer n) {
+
+        buildTreeSequential( n );
+    }; // Construye árbol secuencial de enteros.
+
     rbnode<T> * getRoot () const {
         return this->root;
     };
@@ -391,23 +425,6 @@ public:
         return this->nil;
     };
     // Devuelve T.nil. (Para efectos de revision de la tarea).
-
-    void buildSequentialTree (Integer n) {
-
-        rbnode<T> * current = nullptr;
-        rbnode<T> * temp    = nullptr;
-        root                = new rbnode<T>( 0 );
-        current             = root;
-
-        for ( Integer i = 1; i < n; ++i ) {
-
-            temp           = new rbnode<T>( i, current);
-            current->right = temp;
-            current        = current->right;
-        }
-        
-    };
-
 } ;
 
 #endif // RED_BLACK_rbtree

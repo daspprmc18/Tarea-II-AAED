@@ -6,16 +6,20 @@
 #include <time.h>
 
 #include "bstree.h"
-#include "llist.h"
 #include "hasht.h"
+#include "llist.h"
 #include "rbtree.h"
 
 using std::cout;
-
 typedef long int Integer;
+
+// Funciones Auxiliares:
 
 void printList(const llist<Integer> &list);
 void printStack(stack<Integer> &stk);
+
+// Funciones de pruebas:
+
 void testRandomRedBlackTree(std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n);
 void testSequientialRedBlackTree(std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n);
 void testRandomHashT(std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n);
@@ -24,16 +28,18 @@ tree<Integer> * buildSequentialTree(const Integer& n);
 
 int main(int argc, char** argv) {
 
-    Integer n = 1000000;
+    Integer n    = 1000000;
     Integer * np = &n;
-    Integer min = 0;
-    Integer max = (2 * n) - 1;
+    Integer min  = 0;
+    Integer max  = (2 * n) - 1;
 
     std::random_device rd; // Produce semilla para el generador Mersenne Twister.
     std::mt19937 engine(rd()); // Generador de números aleatorios "Mersenne Twister 19937"
     std::uniform_int_distribution<Integer> distribution(min, max); // Rango distribución uniforme: [0,2n-1].
 
-    testRandomHashT(engine, distribution, *(np));
+    // testRandomHashT(engine, distribution, *(np));
+
+    testSequientialRedBlackTree(engine, distribution, n);
 
     return 0;
 }
@@ -101,18 +107,25 @@ void testSequientialRedBlackTree(std::mt19937 &engine, std::uniform_int_distribu
 
     // Árbol Rojinegro : Elementos secuenciales.
 
-    rbtree<Integer> sequentialRedBlackTree;
-    sequentialRedBlackTree.buildSequentialTree(n);
+    rbtree<Integer> redBlackTree;
+    redBlackTree.buildSequentialTree(n);
 
     std::cout << "----> Arból Rojinegro Secuencial <----\n\n";
     Integer count = 0;
+    Integer found = 0;
+    Integer notfound = 0;
+
     std::chrono::seconds elapsed(0); // Tiempo transcurrido.
     std::chrono::system_clock::time_point finish; // Tiempo final.
     std::chrono::system_clock::time_point start = std::chrono::system_clock::now(); // Tiempo inicial.
 
     while (elapsed.count() < 10) {
 
-        sequentialRedBlackTree.iterativeTreeSearch(distribution(engine));
+        if ( redBlackTree.iterativeTreeSearch(distribution(engine)) )
+            ++found;
+        else
+            ++ notfound;
+
         ++count;
         finish = std::chrono::system_clock::now();
         elapsed = std::chrono::duration_cast<std::chrono::seconds>(finish - start);
@@ -120,6 +133,9 @@ void testSequientialRedBlackTree(std::mt19937 &engine, std::uniform_int_distribu
 
     std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
     std::cout << "Número de búsquedas realizadas: Árbol Rojinegro Secuencial " << count << "\n\n";
+    std::cout << "Número de búsquedas exitosas: " << found << "\n\n";
+    std::cout << "Número de búsquedas fallidas: " << notfound << "\n\n";
+
 }
 
 void testRandomHashT(std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n) {
