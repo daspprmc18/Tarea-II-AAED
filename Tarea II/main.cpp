@@ -127,7 +127,7 @@ void testSequientialRedBlackTree(std::mt19937 &engine, std::uniform_int_distribu
     std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
     std::cout << "Número de búsquedas realizadas: Árbol Rojinegro Secuencial " << count << "\n\n";
 
-    tree.deleteSequentialTree();
+    tree.deleteSequentialTree(); // Elude desbordamiento de pila.
 }
 
 void testRandomHashT(std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n) {

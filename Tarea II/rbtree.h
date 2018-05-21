@@ -241,14 +241,16 @@ private:
         temp                = new rbnode<T>( 1, root, nil , nullptr, RED );
         root->right         = temp;
         current             = temp;
+        colors color        = BLACK;
 
         for ( Integer i = 2; i < n; ++i ) {
 
             if ( ( i % 2 ) == 0 )
-                temp       = new rbnode<T>( i, current, nil, nullptr, BLACK );
+                color = BLACK;
             else
-                temp       = new rbnode<T>( i, current, nil, nullptr, RED );
+                color = RED;
 
+            temp           = new rbnode<T>( i, current, nil, nullptr, color ); // Valgrind ----> Fuga de memoria.
             current->right = temp;
             current        = current->right;
         }
