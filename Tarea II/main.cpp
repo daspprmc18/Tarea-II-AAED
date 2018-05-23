@@ -19,8 +19,7 @@ int main(int argc, char** argv) {
     testSequentialBinaySearchTree(engine, distribution, n);
     testRandomBinarySearchTree(engine, distribution, n);
 
-    // Recordar ejecutar secuencial solo, para obtener resultaos reales...
-    testSequentialRedBlackTree(engine, distribution, n); // Si lo corro solo hace más búsquedas que cuando corrí previamente la búsqueda de aleatorios...
+    testSequentialRedBlackTree(engine, distribution, n);
     testRandomRedBlackTree(engine, distribution, n);
 
     testRandomHashT(engine, distribution, n);
