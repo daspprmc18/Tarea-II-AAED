@@ -262,47 +262,7 @@ private:
 
         delete r;
     }
-
-    void buildTreeSequential (Integer n) { // Construye un árbol secuencial de tipo T.
-
-        rbnode<T> * current = nullptr;
-        rbnode<T> * temp    = nullptr;
-        root                = new rbnode<T>( 0, nil , nil , nullptr, BLACK );
-        temp                = new rbnode<T>( 1, root, nil , nullptr, RED );
-        root->right         = temp;
-        current             = temp;
-        colors color        = BLACK;
-
-        for ( Integer i = 2; i < n; ++i ) {
-
-            if ( ( i % 2 ) == 0 )
-                color = BLACK;
-            else
-                color = RED;
-
-            temp           = new rbnode<T>( i, current, nil, nullptr, color ); // Valgrind ----> Fuga de memoria.
-            current->right = temp;
-            current        = current->right;
-        }
-
-        current->right = nil; // Último nodo.
-    };
-
-    void treeDeleteSequential () { // Si el árbol secuencial no se elimina de esta forma, se produce un desbordamiento de pila y el programa colapsa.
-
-        rbnode<T> * previous = root;             // p: nodo que se va a elminar
-        rbnode<T> * current  = previous->right;  // c: hijo derecho de p.
-
-        while ( current != nil ) {
-
-            delete previous;                    // Elimina   p en                        la iteración t.
-            previous = current;                 // Actualiza p a c para                  la iteración t+1.
-            current  = current->right;          // Actualiza c al hijo derecho de c para la iteración t+1.
-        }
-
-        root = nil; // Evita violación de segmento en destructor.
-    };
-
+    
 public:
 
     rbtree () : nil (new rbnode<T>( )) {
@@ -464,14 +424,6 @@ public:
     // Saca del arbol la llave contenida en el nodo apuntado por z.
     // Devuelve la direccion del nodo eliminado para que se pueda 
     // disponer de el.
-
-    void buildSequentialTree (Integer n) {
-        buildTreeSequential( n );
-    }; // Construye árbol secuencial de enteros.
-
-    void deleteSequentialTree () {
-        treeDeleteSequential ( );
-    } // Elimina el árbol secuencial: Evita desbordamiento de pila.
 
     rbnode<T> * getRoot () const {
         return this->root;

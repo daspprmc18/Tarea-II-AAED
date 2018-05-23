@@ -25,10 +25,10 @@ void testRandomList (std::mt19937 &engine, std::uniform_int_distribution<Integer
 void testSequentialList (std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n);
 
 void testRandomBinarySearchTree (std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n);
-void testSequientialBinaySearchTree (std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n);
+void testSequentialBinaySearchTree (std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n);
 
 void testRandomRedBlackTree (std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n);
-void testSequientialRedBlackTree (std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n);
+void testSequentialRedBlackTree (std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n);
 
 void testRandomHashT (std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n);
 void testSequentialHashT (std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n);

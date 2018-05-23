@@ -128,7 +128,7 @@ void testRandomBinarySearchTree (std::mt19937 &engine, std::uniform_int_distribu
 
 }
 
-void testSequientialBinaySearchTree (std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n) {
+void testSequentialBinaySearchTree (std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer &n) {
 
     tree<Integer> sequentialTree;
     sequentialTree.buildTreeSequential(n);
@@ -189,13 +189,20 @@ void testRandomRedBlackTree(std::mt19937 &engine, std::uniform_int_distribution<
 
 }
 
-void testSequientialRedBlackTree(std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer & n) {
+void testSequentialRedBlackTree(std::mt19937 &engine, std::uniform_int_distribution<Integer> &distribution, Integer & n) {
 
     // Árbol Rojinegro : Elementos secuenciales.
 
     rbtree<Integer> tree;
-    tree.buildSequentialTree(n);
 
+    rbnode<Integer> * node = nullptr;
+
+    for (Integer i = 0; i < n; ++i) {
+
+        node = new rbnode<Integer>(i);
+        tree.treeInsert(node);
+    }
+    
     std::cout << "----> Arból Rojinegro Secuencial <----\n\n";
     Integer count = 0;
 
@@ -212,9 +219,6 @@ void testSequientialRedBlackTree(std::mt19937 &engine, std::uniform_int_distribu
     }
     std::cout << "Tiempo transcurrido: " << elapsed.count() << " segundos\n\n";
     std::cout << "Número de búsquedas realizadas: Árbol Rojinegro Secuencial " << count << "\n\n";
-
-    tree.deleteSequentialTree(); // Elude desbordamiento de pila.
-
 }
 
 // -------------------------------------------------------------> Tabla de dispersión <-------------------------------------------------------------
