@@ -1,10 +1,8 @@
 #include <chrono>
 #include <cstdlib>
 #include <random>
-#include <stack>
 
 #include "pruebas.h"
-#include "hasht.h"
 
 int main(int argc, char** argv) {
 
