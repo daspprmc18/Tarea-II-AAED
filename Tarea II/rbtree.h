@@ -214,27 +214,56 @@ private:
         return current;
     };
 
-    void copyTree (rbnode<T> * origRoot, const rbnode<T> * origNil) {
+    void copyTree (const rbnode<T> * objRoot, const rbnode<T> * objNil) {
 
-        if ( origRoot != origNil ) { // Comparación entre punteros de orig.
+        if ( objRoot != objNil ) {                           // Comparación entre punteros de obj.
 
-            rbnode<T> * temp = new rbnode<T>( origRoot->key ); // El color del nodo es rojo por defecto.
-            treeInsert( temp );
-            copyTree( origRoot->left, origNil );  // Copia subárbol izquierdo de C. 
-            copyTree( origRoot->right, origNil ); // Copia subárbol derecho de C. 
+            rbnode<T> * temp = new rbnode<T>( objRoot->key, nullptr, nullptr, nullptr, objRoot->color ); // Copia el color del nodo orginal.
+            copyTreeInsert( temp );                          // Inserta el nodo sin balancear.
+            copyTree( objRoot->left, objNil );               // Copia subárbol izquierdo de C. 
+            copyTree( objRoot->right, objNil );              // Copia subárbol derecho de C. 
         }
     };
 
-    void eraseTree (rbnode<T> * r) {
+    void copyTreeInsert ( rbnode<T>* z) { // El árbol original ya está balanceado, en consecuencia solo se insertan los nodos con su respectivo color.
+
+        rbnode<T> * trailing = nil;
+        rbnode<T> * current  = root;
+
+        while ( current != nil ) {
+
+            trailing = current;      // T referencia al padre de C.
+
+            if ( z->key < current->key )
+                current = current->left;
+            else
+                current = current->right;
+        } // Finaliza cuando encuentra la posición adecuada para insertar el nodo Z.
+
+        z->p  = trailing;           // El padre de Z es el nodo al cual apunta T actualmente.
+
+        if ( trailing == nil )      // Árbol vacío.
+            root      = z;
+        else if ( z->key < trailing->key )
+            trailing->left   = z;   // Z es hijo izquierdo de T.
+        else
+            trailing->right  = z;   // Z es hijo derecho de T.
+
+        z->left  = nil;
+        z->right = nil;
+    };
+
+    void eraseTree (rbnode<T> * r) { // Elimina el árbol recursivamente.
 
         if ( r->left != nil )
             eraseTree( r->left );
         if ( r->right != nil )
             eraseTree( r->right );
+
         delete r;
     }
 
-    void buildTreeSequential (Integer n) {
+    void buildTreeSequential (Integer n) { // Construye un árbol secuencial de tipo T.
 
         rbnode<T> * current = nullptr;
         rbnode<T> * temp    = nullptr;
@@ -281,24 +310,22 @@ public:
         nil->color = BLACK;
         nil->left  = nil;
         nil->right = nil;
+        nil->key   = -1;
         root       = nil;
     };
     // Constructor (crea un arbol vacio)
-
-    /*rbtree (const rbtree<T>& obj) {
-        copyRB( obj.getRoot( ), obj.getNil( ) );
-    };*/
 
     rbtree (const rbtree<T>& obj) : nil (new rbnode<T>( )) {
 
         nil->color = BLACK;
         nil->left  = nil;
         nil->right = nil;
+        nil->key   = obj.nil->key;
         root       = nil;
 
         copyTree( obj.root, obj.nil );
     };
-    // Constructor copia*/
+    // Constructor copia
 
     ~rbtree () {
 
@@ -356,9 +383,11 @@ public:
         if ( root == nil ) // Árbol vacío.
             return nullptr;
 
-        rbnode<T>* current = root;
+        rbnode<T> * current = root;
+
         while ( current->left != nil )  // Mientras el nodo apuntado por C tenga hijo izquierdo ( Nodo interno ).
             current = current->left;    // Avanza C al hijo izquierdo de C.
+
         return current;
     };
     // Devuelve el nodo con la llave menor.
@@ -382,15 +411,15 @@ public:
 
         rbnode<T>* y = nil;
 
-        if ( x->right != nil ) // Subárbol derecho de X no está vacío
-            return treeMinimum( x->right ); // El sucesor de X es el mínimo del subárbol derecho de X. 
+        if ( x->right != nil )                // Subárbol derecho de X no está vacío
+            return treeMinimum( x->right );   // El sucesor de X es el mínimo del subárbol derecho de X. 
 
-        y = x->p; // Y, padre del nodo apuntado por X. 
+        y = x->p;                             // Y, padre del nodo apuntado por X. 
 
         while ( y != nil && x == y->right ) { // Mientras Y no sea NIL y X sea hijo derecho de Y.
 
-            x = y; // Suba X un nivel ----> Ahora X apunta a su padre.
-            y = y->p; // Suba Y un nivel ----> Ahora Y apunta al abuelo de X / Padre de Y.
+            x = y;                           // Suba X un nivel ----> Ahora X apunta a su padre.
+            y = y->p;                        // Suba Y un nivel ----> Ahora Y apunta al abuelo de X / Padre de Y.
 
         } // Finaliza cuando encuentra el primer ancestro en dirección noreste. " Es decir X es hijo izquierdo de Y".
 
