@@ -24,21 +24,6 @@ private:
     vector< list<T> > tabla;
     // La tabla es un vector de listas de STL
 
-    /*private:
-
-        double loadF () {
-
-            double n = 0.0L;
-
-            for ( int i = 0; i < numEntradas; ++i ) // Calcula n.
-                n += tabla.at( i ).size( );
-
-            // Calcula factor de carga: m/n .
-
-            double loadF = ( double ) numEntradas / n;
-            return loadF;
-        };*/
-
 public:
 
     hasht (int nEntradas) : numEntradas (nEntradas) {
@@ -88,15 +73,7 @@ public:
     };
     // Inserta el elemento en la tabla
 
-    /*double loadFactor () {
-        return loadF( );
-    };*/
-
     /*void printTable () {
-
-        typename list<T>::iterator it;
-        typename list<T>::iterator begin;
-        typename list<T>::iterator end;
 
         cout << "Tabla de dispersión: \n\n";
 
@@ -104,9 +81,8 @@ public:
 
             cout << i << ": " << " ";
 
-            begin = tabla[i].begin( );
-            it = begin;
-            end = tabla[i].end( );
+            typename list<T>::iterator it = tabla[i].begin( );
+            typename list<T>::iterator end = tabla[i].end( );
 
             while ( it != end ) {
 

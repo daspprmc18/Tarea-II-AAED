@@ -4,6 +4,7 @@
 #include <stack>
 
 #include "pruebas.h"
+#include "hasht.h"
 
 int main(int argc, char** argv) {
 
@@ -26,5 +27,6 @@ int main(int argc, char** argv) {
 
     testRandomHashT(engine, distribution, n);
     testSequentialHashT(engine, distribution, n);
+
     return 0;
 }

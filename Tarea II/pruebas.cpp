@@ -1,6 +1,8 @@
 
 #include "pruebas.h"
 
+// -------------------------------------------------------------> Funciones Auxiliares <-------------------------------------------------------------
+
 void printList(const llist<Integer> &list) {
 
     llnode<Integer> * p = nullptr;
