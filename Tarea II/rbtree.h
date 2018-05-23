@@ -191,7 +191,7 @@ private:
         root->color = BLACK;
     }
 
-    rbnode<T>* treeSearch (rbnode<T>* c, const T& k) { // C: current node.
+    rbnode<T>* treeSearch (rbnode<T> * c, const T& k) const { // C: current node.
 
         if ( c == nil )        // C es NIL o el elemento en el nodo apuntado por C es el que se busca.
             return nullptr;
