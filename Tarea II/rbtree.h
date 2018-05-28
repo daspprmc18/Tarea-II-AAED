@@ -191,7 +191,7 @@ private:
         root->color = BLACK;
     }
 
-    rbnode<T>* treeSearch (rbnode<T> * c, const T& k) const { // C: current node.
+    rbnode<T>* treeSearch (rbnode<T> * c, const T& k){ // C: current node.
 
         if ( c == nil )        // C es NIL o el elemento en el nodo apuntado por C es el que se busca.
             return nullptr;
@@ -204,7 +204,7 @@ private:
             return treeSearch( c->right, k ); // Buscar K en el subárbol derecho.
     };
 
-    rbnode<T>* treeMinimum (rbnode<T>* x) const {
+    rbnode<T>* treeMinimum (rbnode<T>* x){
 
         rbnode<T>* current = x;
 
@@ -296,7 +296,7 @@ public:
     };
     // Destructor (borra el arbol)
 
-    void inorderTreeWalk (rbnode<T>* x, stack<T> & pila) const {
+    void inorderTreeWalk (rbnode<T>* x, stack<T> & pila) {
 
         if ( x != nil ) { // Si el subárbol actual no está vació.
 
@@ -316,13 +316,13 @@ public:
     // contener las llaves de los nodos del subrbol (y su color) 
     // ordenadas de mayor a menor.
 
-    rbnode<T>* treeSearch (const T& k) const {
+    rbnode<T>* treeSearch (const T& k) {
         return treeSearch( root, k );
     };
     // Busca la llave recursivamente, si la encuentra devuelve un 
     // puntero al nodo que la contiene, sino devuelve NULL.
 
-    rbnode<T>* iterativeTreeSearch (const T& k) const {
+    rbnode<T>* iterativeTreeSearch (const T& k) {
 
         rbnode<T> * current = root;
 
@@ -338,7 +338,7 @@ public:
     };
     // Igual que en el anterior pero usa un procedimiento iterativo.
 
-    rbnode<T>* treeMinimum () const {
+    rbnode<T>* treeMinimum (){
 
         if ( root == nil ) // Árbol vacío.
             return nullptr;
@@ -353,7 +353,7 @@ public:
     // Devuelve el nodo con la llave menor.
     // Si el arbol esta vacio devuelve NULL.
 
-    rbnode<T>* treeMaximum () const {
+    rbnode<T>* treeMaximum (){
 
         if ( root == nil ) // Árbol vacío.
             return nullptr;
@@ -367,7 +367,7 @@ public:
     // Devuelve el nodo con la llave mayor.
     // Si el arbol esta vacio devuelve NULL.
 
-    rbnode<T>* treeSuccessor (const rbnode<T>* x) const {
+    rbnode<T>* treeSuccessor (const rbnode<T>* x){
 
         rbnode<T>* y = nil;
 
